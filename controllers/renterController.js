@@ -3,9 +3,9 @@ const Renter = require('../models/renterModel');
 module.exports.renterSignup = async (req, res) => {
     const renter = new Renter(req.body);
     try {
-        // await renter.save()
-        const token = await renter.generateAuthToken()
-        res.status(201).send({ renter, token })
+        await renter.save()
+        // const token = await renter.generateAuthToken()
+        res.status(201).send({ renter })
     } catch (e) {
         res.status(400).send(e)
     }
