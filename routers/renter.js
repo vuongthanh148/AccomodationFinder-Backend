@@ -44,7 +44,5 @@ router.delete('/renter/me', auth, async (req, res) => {
 router.get('/', (req, res) => {
     res.send("abcdef")
 })
-router.post('/', (req, res) => {
-    res.send("abcdefghfg")
-})
+router.post('/', renterController.renterSignup)
 module.exports = router
