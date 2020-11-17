@@ -2,10 +2,10 @@ const Renter = require('../models/renterModel');
 
 const data =
     {
-        email =  "vuongthanh1484@gmail.com",
-        password =  "12345678",
-        name =  "Thanh",
-        phoneNumber = "0886662928"
+        email:  "vuongthanh1484@gmail.com",
+        password:  "12345678",
+        name:  "Thanh",
+        phoneNumber: "0886662928"
     }
 
 module.exports.renterSignup = async (req, res) => {
