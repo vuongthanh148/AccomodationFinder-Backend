@@ -45,6 +45,6 @@ router.get('/', (req, res) => {
     res.send("abcdef")
 })
 router.post('/', (req, res) => {
-    res.send("abcdef")
+    res.send("abcdefghfg")
 })
 module.exports = router
