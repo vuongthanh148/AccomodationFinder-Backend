@@ -10,11 +10,7 @@ const data =
 
 module.exports.renterSignup = async (req, res) => {
     const renter = new Renter(data);
-    console.log(renter)
-    console.log('da co renter');
-    const savedRenter = await renter.save();
-    // console.log(savedRenter);
-    res.send(renter);
+   
     // try{
     //     console.log("start saving");
     //     await renter.save();
@@ -25,14 +21,14 @@ module.exports.renterSignup = async (req, res) => {
     //     res.send(e);
     // }
 
-    // try {
-    //     await renter.save()
-    //     const token = await renter.generateAuthToken()
-    //     res.status(201).send({ renter })
-    //     res.send(renter)
-    // } catch (e) {
-    //     res.status(400).send(e)
-    // }
+    try {
+        await renter.save()
+        const token = await renter.generateAuthToken()
+        res.status(201).send({ renter, token })
+        res.send(renter)
+    } catch (e) {
+        res.status(400).send(e)
+    }
 };
 
 module.exports.renterLogin = async (req, res) => {
