@@ -4,8 +4,8 @@ module.exports.renterSignup = async (req, res) => {
     const renter = new Renter(req.body);
     console.log(renter)
     console.log('da co renter');
-    // const savedRenter = await renter.save();
-    // console.log(savedRenter);
+    const savedRenter = await renter.save();
+    console.log(savedRenter);
     res.send(renter);
     // try{
     //     console.log("start saving");

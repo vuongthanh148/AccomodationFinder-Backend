@@ -78,12 +78,12 @@ renterSchema.statics.findByCredentials = async (email, password) => {
 }
 
 renterSchema.pre('save', async function (next) {
-  const renter = this
-  console.log("dcmm loi o day ne")
+  // const renter = this
+  // console.log("dcmm loi o day ne")
 
-  if (renter.isModified('password')) {
-      renter.password = await bcrypt.hash(renter.password, 8)
-  }
+  // if (renter.isModified('password')) {
+  //     renter.password = await bcrypt.hash(renter.password, 8)
+  // }
 
   next()
 })
