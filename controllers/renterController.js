@@ -1,15 +1,15 @@
 const Renter = require('../models/renterModel');
 
 module.exports.renterSignup = async (req, res) => {
-    const renter = new Renter(req.body)
-    console.log("renter: ", renter)
-    try {
-        await renter.save()
-        const token = await renter.generateAuthToken()
-        res.status(201).send({ renter, token })
-    } catch (e) {
-        res.status(400).send(e)
-    }
+    const renter = new Renter(req.body);
+    // try {
+    //     await renter.save()
+    //     const token = await renter.generateAuthToken()
+    //     res.status(201).send({ renter, token })
+    // } catch (e) {
+    //     res.status(400).send(e)
+    // }
+    res.send(renter)
 };
 
 module.exports.renterLogin = async (req, res) => {
