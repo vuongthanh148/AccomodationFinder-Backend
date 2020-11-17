@@ -3,15 +3,17 @@ const Renter = require('../models/renterModel');
 module.exports.renterSignup = async (req, res) => {
     const renter = new Renter(req.body);
     console.log('da co renter');
-    try{
-        console.log("start saving");
-        await renter.save();
-        console.log("end saving");
-        res.send(renter);
-    }
-    catch(e) {
-        res.send(e);
-    }
+    res.send(renter)
+    // try{
+    //     console.log("start saving");
+    //     await renter.save();
+    //     console.log("end saving");
+    //     res.send(renter);
+    // }
+    // catch(e) {
+    //     res.send(e);
+    // }
+
     // try {
     //     await renter.save()
     //     const token = await renter.generateAuthToken()
