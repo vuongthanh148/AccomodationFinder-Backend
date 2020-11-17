@@ -12,7 +12,7 @@ module.exports.renterSignup = async (req, res) => {
     const renter = new Renter(data);
     console.log(renter)
     console.log('da co renter');
-    // const savedRenter = await renter.save();
+    const savedRenter = await renter.save();
     // console.log(savedRenter);
     res.send(renter);
     // try{
