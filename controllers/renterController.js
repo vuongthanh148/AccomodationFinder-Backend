@@ -4,6 +4,7 @@ module.exports.renterSignup = async (req, res) => {
     const renter = new Renter(req.body);
     
     try{
+        await renter.save();
         res.send(renter);
     }
     catch(e) {
