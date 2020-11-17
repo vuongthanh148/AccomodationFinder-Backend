@@ -1,26 +1,8 @@
 const Renter = require('../models/renterModel');
 
-const data =
-    {
-        email:  "vuongthanh1484@gmail.com",
-        password:  "12345678",
-        name:  "Thanh",
-        phoneNumber: "0886662928"
-    }
 
 module.exports.renterSignup = async (req, res) => {
-    const renter = new Renter(data);
-   
-    // try{
-    //     console.log("start saving");
-    //     await renter.save();
-    //     console.log("end saving");
-    //     res.send(renter);
-    // }
-    // catch(e) {
-    //     res.send(e);
-    // }
-
+    const renter = new Renter(req.body);
     try {
         await renter.save()
         const token = await renter.generateAuthToken()
