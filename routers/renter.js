@@ -14,35 +14,8 @@ router.post('/renter/logoutAll', auth, renterController.renterLogoutAll)
 
 router.get('/renter/profile', auth, renterController.renterProfile)
 
-router.patch('/renter/profile', auth, async (req, res) => {
-    const updates = Object.keys(req.body)
-    const allowedUpdates = ['name', 'email', 'password']
-    const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
+router.patch('/renter/profile', auth, renterController.renterUpdateProfile)
 
-    if (!isValidOperation) {
-        return res.status(400).send({ error: 'Invalid updates!' })
-    }
+router.delete('/renter/profile', auth, renterController.renterDeleteProfile)
 
-    try {
-        updates.forEach((update) => req.renter[update] = req.body[update])
-        await req.renter.save()
-        res.send(req.renter)
-    } catch (e) {
-        res.status(400).send(e)
-    }
-})
-
-router.delete('/renter/me', auth, async (req, res) => {
-    try {
-        await req.renter.remove()
-        res.send(req.renter)
-    } catch (e) {
-        res.status(500).send()
-    }
-})
-
-// router.get('/', (req, res) => {
-//     res.send("abcdef")
-// })
-router.get('/', renterController.renterSignup)
 module.exports = router

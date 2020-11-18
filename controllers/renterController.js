@@ -30,7 +30,7 @@ module.exports.renterLogout = async (req, res) => {
         })
         await req.renter.save()
 
-        res.send()
+        res.send("Logout Successful")
     } catch (e) {
         res.status(500).send()
     }
@@ -45,8 +45,36 @@ module.exports.renterLogoutAll = async (req, res) => {
         res.status(500).send()
     }
 };
+
 module.exports.renterProfile = async (req, res) => {
     res.send(req.renter)
+};
+
+module.exports.renterUpdateProfile = async (req, res) => {
+    const updates = Object.keys(req.body)
+    const allowedUpdates = ['name', 'email', 'password']
+    const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
+
+    if (!isValidOperation) {
+        return res.status(400).send({ error: 'Invalid updates!' })
+    }
+
+    try {
+        updates.forEach((update) => req.renter[update] = req.body[update])
+        await req.renter.save()
+        res.send(req.renter)
+    } catch (e) {
+        res.status(400).send(e)
+    }
+};
+
+module.exports.renterDeleteProfile = async (req, res) => {
+    try {
+        await req.renter.remove()
+        res.send(req.renter)
+    } catch (e) {
+        res.status(500).send()
+    }
 };
 
 
