@@ -9,7 +9,7 @@ module.exports.renterSignup = async (req, res) => {
         res.status(201).send({ renter, token })
         res.send(renter)
     } catch (e) {
-        res.status(400).send("Existing Account")
+        res.status(400).send(e)
     }
 };
 

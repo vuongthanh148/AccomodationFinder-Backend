@@ -9,7 +9,7 @@ module.exports.ownerSignup = async (req, res) => {
         res.status(201).send({ owner, token })
         res.send(owner)
     } catch (e) {
-        res.status(400).send("Existing Account")
+        res.status(400).send(e)
     }
 };
 
