@@ -4,7 +4,17 @@ const Renter = require('../models/renterModel');
 module.exports.renterSignup = async (req, res) => {
     const renter = new Renter(req.body);
     try {
-        await renter.save()
+        await renter.save(function(err) {
+            if (err) {
+              if (err.name === 'MongoError' && err.code === 11000) {
+                // Duplicate username
+                return res.status(422).send({ message: 'User already exist!' });
+              }
+        
+              // Some other error
+              return res.status(422).send(err);
+            }
+          });
         const token = await renter.generateAuthToken()
         res.status(201).send({ renter, token })
         res.send(renter)
