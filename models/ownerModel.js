@@ -51,6 +51,42 @@ const ownerSchema = mongoose.Schema({
   }
 });
 
+ownerSchema.methods.generateAuthToken = async function () {
+  const owner = this
+  const token = jwt.sign({ _id: owner._id.toString() }, 'kenji')
+
+  owner.tokens = owner.tokens.concat({ token })
+  await owner.save()
+
+  return token
+}
 
 
-module.exports = mongoose.model("owner", ownerSchema);
+ownerSchema.statics.findByCredentials = async (email, password) => {
+  const owner = await Owner.findOne({ email })
+
+  if (!owner) {
+      throw new Error('Unable to login')
+  }
+
+  const isMatch = await bcrypt.compare(password, owner.password)
+
+  if (!isMatch) {
+      throw new Error('Unable to login')
+  }
+
+  return owner
+}
+
+ownerSchema.pre('save', async function (next) {
+  const owner = this
+
+  if (owner.isModified('password')) {
+      owner.password = await bcrypt.hash(owner.password, 8)
+  }
+
+  next()
+})
+
+
+module.exports = mongoose.model("Owner", ownerSchema);
