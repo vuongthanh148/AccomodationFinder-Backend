@@ -12,14 +12,14 @@ const ownerSchema = mongoose.Schema({
     required: true,
     trim: true,
     lowercase: true,
-    validate(value) {
-      if (!validator.isEmail(value)) {
-        throw new Error("Email is invalid");
-      }
-    },
+    // validate(value) {
+    //   if (!validator.isEmail(value)) {
+    //     throw new Error("Email is invalid");
+    //   }
+    // },
   },
   citizenId: {
-    type: Number,
+    type: String,
     require: true,
     minlength: 12,
     minlength: 9,
