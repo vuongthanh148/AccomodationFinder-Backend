@@ -1,7 +1,7 @@
 const express = require('express')
 require('./connectdb/mongoose')
 const renterRouter = require('./routers/renter')
-const ownerRouter = require('./router/owner')
+const ownerRouter = require('./routers/owner')
 
 const app = express()
 const port = process.env.PORT || 3000
