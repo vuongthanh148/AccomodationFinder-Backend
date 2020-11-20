@@ -7,9 +7,16 @@ module.exports.ownerSignup = async (req, res) => {
         await owner.save()
         const token = await owner.generateAuthToken()
         res.status(201).send({ owner, token })
-        res.send(owner)
-    } catch (e) {
-        res.status(400).send(e)
+    } catch (err) {
+        if (err) {
+            if (err.name === 'MongoError' && err.code === 11000) {
+              // Duplicate username
+                res.status(422).send({ message: 'User already exist!' });
+            }
+      
+            // Some other error
+            res.status(422).send(err);
+        }
     }
 };
 

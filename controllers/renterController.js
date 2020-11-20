@@ -9,7 +9,6 @@ module.exports.renterSignup = async (req, res) => {
         // await renter.save();
         const token = await renter.generateAuthToken()
         res.status(201).send({ renter, token })
-        res.send(renter)
     } catch (err) {
         if (err) {
             if (err.name === 'MongoError' && err.code === 11000) {
