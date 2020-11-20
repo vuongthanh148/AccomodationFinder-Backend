@@ -21,8 +21,8 @@ const ownerSchema = mongoose.Schema({
   citizenId: {
     type: Number,
     require: true,
-    max: 12,
-    min: 9,
+    minlength: 12,
+    minlength: 9,
   },
   address: {
     type: String,
