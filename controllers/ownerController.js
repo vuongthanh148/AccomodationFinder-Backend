@@ -4,16 +4,16 @@ const Owner = require('../models/ownerModel');
 module.exports.ownerSignup = async (req, res) => {
     const owner = new Owner(req.body);
     try {
-        await owner.save()
+        console.log("start saving")
+        await owner.save();
         const token = await owner.generateAuthToken()
-        res.send({ owner, token })
+        res.send(owner)
     } catch (err) {
         if (err) {
             if (err.name === 'MongoError' && err.code === 11000) {
               // Duplicate username
                 res.status(422).send({ message: 'User already exist!' });
             }
-      
             // Some other error
             res.status(422).send(err);
         }
