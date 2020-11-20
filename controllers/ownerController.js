@@ -6,7 +6,7 @@ module.exports.ownerSignup = async (req, res) => {
     try {
         await owner.save()
         const token = await owner.generateAuthToken()
-        res.status(201).send({ owner, token })
+        res.send({ owner, token })
     } catch (err) {
         if (err) {
             if (err.name === 'MongoError' && err.code === 11000) {
