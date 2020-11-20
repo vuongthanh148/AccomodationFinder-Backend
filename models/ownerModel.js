@@ -66,13 +66,13 @@ ownerSchema.statics.findByCredentials = async (email, password) => {
   const owner = await Owner.findOne({ email })
 
   if (!owner) {
-      throw new Error('Unable to login')
+      throw new Error('Cannot find email')
   }
 
   const isMatch = await bcrypt.compare(password, owner.password)
 
   if (!isMatch) {
-      throw new Error('Unable to login')
+      throw new Error('Wrong password')
   }
 
   return owner
