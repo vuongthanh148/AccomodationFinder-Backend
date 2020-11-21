@@ -18,6 +18,8 @@ router.get('/owner/pending', ownerController.ownerPending)
 
 router.patch('/owner/profile', auth, ownerController.ownerUpdateProfile)
 
+router.patch('/owner/approve', ownerController.ownerApprove)
+
 router.delete('/owner/profile', auth, ownerController.ownerDeleteProfile)
 
 module.exports = router

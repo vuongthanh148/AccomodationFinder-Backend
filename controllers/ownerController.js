@@ -86,9 +86,20 @@ module.exports.ownerDeleteProfile = async (req, res) => {
 
 module.exports.ownerPending = async (req, res) => {
     try {
-        const listOwner = Owner.find({pending: true});
-        res.send({listOwner: listOwner})
+        const listOwner = await Owner.find({pending: true});
+        res.send(listOwner)
     } catch (e) {
+        res.status(400).send(e)
+    }
+};
+
+module.exports.ownerApprove = async (req, res) => {
+    try {
+        const owner = await Owner.findOneAndUpdate({email: req.body.email}, {pending: 'false'});
+        console.log(owner) 
+        res.send(owner)
+    } catch(e) {
+        console.log(e)
         res.status(400).send(e)
     }
 };
