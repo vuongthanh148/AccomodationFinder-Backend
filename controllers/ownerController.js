@@ -83,3 +83,12 @@ module.exports.ownerDeleteProfile = async (req, res) => {
         res.status(500).send()
     }
 };
+
+module.exports.ownerPending = async (req, res) => {
+    try {
+        await req.owner.remove()
+        res.send({message:"Delete Account Successful"})
+    } catch (e) {
+        res.status(500).send()
+    }
+};

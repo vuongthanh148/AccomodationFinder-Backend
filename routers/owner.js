@@ -14,6 +14,8 @@ router.post('/owner/logoutAll', auth, ownerController.ownerLogoutAll)
 
 router.get('/owner/profile', auth, ownerController.ownerProfile)
 
+router.get('/owner/pending', auth, ownerController.ownerPending)
+
 router.patch('/owner/profile', auth, ownerController.ownerUpdateProfile)
 
 router.delete('/owner/profile', auth, ownerController.ownerDeleteProfile)
