@@ -1,5 +1,5 @@
 const express = require('express')
-const Owver = require('../models/ownerModel')
+const Owner = require('../models/ownerModel')
 const auth = require('../middleware/auth')
 const ownerController = require('../controllers/ownerController');
 const router = new express.Router()
@@ -14,7 +14,7 @@ router.post('/owner/logoutAll', auth, ownerController.ownerLogoutAll)
 
 router.get('/owner/profile', auth, ownerController.ownerProfile)
 
-router.get('/owner/pending', auth, ownerController.ownerPending)
+router.get('/owner/pending', ownerController.ownerPending)
 
 router.patch('/owner/profile', auth, ownerController.ownerUpdateProfile)
 
