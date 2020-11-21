@@ -89,6 +89,6 @@ module.exports.ownerPending = async (req, res) => {
         const listOwner = Owner.find({pending: true});
         res.send({listOwner: listOwner})
     } catch (e) {
-        res.status(400).send({message: "Cannot get pending owner"})
+        res.status(400).send({message: "Cannot get pending owner", e})
     }
 };
