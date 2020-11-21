@@ -86,9 +86,9 @@ module.exports.ownerDeleteProfile = async (req, res) => {
 
 module.exports.ownerPending = async (req, res) => {
     try {
-        await req.owner.remove()
-        res.send({message:"Delete Account Successful"})
+        const listOwner = Owner.find({pending: true});
+        res.send({listOwner: listOwner})
     } catch (e) {
-        res.status(500).send()
+        res.status(400).send({message: "Cannot get pending owner"})
     }
 };
