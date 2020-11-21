@@ -78,7 +78,7 @@ module.exports.ownerUpdateProfile = async (req, res) => {
 module.exports.ownerDeleteProfile = async (req, res) => {
     try {
         await req.owner.remove()
-        res.send(req.owner)
+        res.send({message:"Delete Account Successful"})
     } catch (e) {
         res.status(500).send()
     }
