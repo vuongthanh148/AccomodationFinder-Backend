@@ -59,7 +59,7 @@ module.exports.ownerProfile = async (req, res) => {
 
 module.exports.ownerUpdateProfile = async (req, res) => {
     const updates = Object.keys(req.body)
-    const allowedUpdates = ['name', 'email', 'password', 'address']
+    const allowedUpdates = ['name', 'email', 'password', 'address', 'phoneNumber']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
     if (!isValidOperation) {
