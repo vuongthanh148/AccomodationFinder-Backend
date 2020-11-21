@@ -51,7 +51,15 @@ const ownerSchema = mongoose.Schema({
       type: Boolean,
       require: true,
       default: true,
-  }
+  },
+  tokens: [
+    {
+      token: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
 });
 
 ownerSchema.methods.generateAuthToken = async function () {
