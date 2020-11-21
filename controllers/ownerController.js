@@ -37,7 +37,7 @@ module.exports.ownerLogout = async (req, res) => {
         })
         await req.owner.save()
 
-        res.send("Logout Successful")
+        res.send({message: "Logout Successful"})
     } catch (e) {
         res.status(500).send()
     }
