@@ -3,7 +3,7 @@ const Owner = require('../models/ownerModel');
 
 module.exports.ownerSignup = async (req, res) => {
     const owner = new Owner(req.body);
-    console.log("dcmm")
+    console.log(req.body)
     try {
         console.log("start saving")
         await owner.save();
