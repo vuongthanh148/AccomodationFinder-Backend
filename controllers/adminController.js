@@ -45,6 +45,11 @@ module.exports.adminLogout = async (req, res) => {
     }
 };
 
+module.exports.adminProfile = async (req, res) => {
+    res.send(req.admin)
+};
+
+
 
 
 
