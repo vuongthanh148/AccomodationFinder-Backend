@@ -1,5 +1,7 @@
 const express = require('express')
 const Owner = require('../models/ownerModel')
+const multer = require('multer')
+const sharp = require('sharp')
 const auth = require('../middleware/auth')
 const ownerController = require('../controllers/ownerController');
 const router = new express.Router()
