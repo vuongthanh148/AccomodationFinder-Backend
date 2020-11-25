@@ -33,11 +33,6 @@ const renterSchema = new mongoose.Schema(
         }
       },
     },
-    // phoneNumber: {
-    //   type: String,
-    //   required: true,
-    //   match: /(03|07|08|09|01[2|6|8|9])+([0-9]{8})/,
-    // },
     follow: {
       type: [mongoose.Schema.Types.ObjectId],
     },
@@ -50,7 +45,7 @@ const renterSchema = new mongoose.Schema(
       },
     ],
     avatar: {
-      type: Buffer,
+      type: [Buffer],
     },
   },
   {

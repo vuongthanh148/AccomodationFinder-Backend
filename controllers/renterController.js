@@ -1,12 +1,15 @@
 const Renter = require('../models/renterModel');
+const fs = require('fs');
+const sharp = require('sharp');
 
 
 module.exports.renterSignup = async (req, res) => {
+    var imgBinary = fs.readFileSync('cat250.png');
+    imgBinary = await sharp(imgBinary).resize({ width: 250, height: 250 }).png().toBuffer();
     const renter = new Renter(req.body);
-    console.log(renter)
+    renter.avatar.push(imgBinary);
     try {
         await renter.save();
-
         // await renter.save();
         const token = await renter.generateAuthToken()
         res.status(201).send({ renter, token })
@@ -18,7 +21,7 @@ module.exports.renterSignup = async (req, res) => {
             }
       
             // Some other error
-            res.status(422).send(err);
+            else res.status(422).send(err);
         }
     }
 };

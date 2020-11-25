@@ -1,10 +1,11 @@
 const express = require('express')
 const Renter = require('../models/renterModel')
-const multer = require('multer')
-const sharp = require('sharp')
 const auth = require('../middleware/auth')
+const sharp = require('sharp')
 const renterController = require('../controllers/renterController');
+const upload = require('../middleware/multer')
 const router = new express.Router()
+const fs = require('fs');
 
 router.post('/renter/signup', renterController.renterSignup)
 
@@ -20,23 +21,14 @@ router.patch('/renter/profile', auth, renterController.renterUpdateProfile)
 
 router.delete('/renter/profile', auth, renterController.renterDeleteProfile)
 
-const upload = multer({
-    limits: {
-        fileSize: 1000000
-    },
-    fileFilter(req, file, cb) {
-        if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-            return cb(new Error('Please upload an image'))
-        }
 
-        cb(undefined, true)
+router.post('/renter/profile/avatar', auth, upload.array('avatar',2), async (req, res) => {
+    // console.log(req.body)
+     for(f of req.files){
+        const buffer = await sharp(f.buffer).resize({ width: 250, height: 250 }).png().toBuffer()
+        console.log(buffer)
+        req.renter.avatar.push(buffer)
     }
-})
-
-router.post('/renter/profile/avatar', auth, upload.single('avatar'), async (req, res) => {
-    const buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer()
-    req.renter.avatar = buffer
-    console.log(buffer)
     await req.renter.save()
     res.send()
 }, (error, req, res, next) => {
@@ -57,7 +49,7 @@ router.get('/renter/:id/avatar', async (req, res) => {
             throw new Error()
         }
         res.set('Content-Type', 'image/png')
-        res.send(renter.avatar)
+        res.send(renter.avatar[0])
     } catch (e) {
         res.status(404).send()
     }

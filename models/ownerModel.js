@@ -62,7 +62,7 @@ const ownerSchema = mongoose.Schema(
       },
     ],
     avatar: {
-      type: Buffer,
+      type: [Buffer],
     },
   },
   {
