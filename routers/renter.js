@@ -26,7 +26,9 @@ router.delete("/renter/profile", auth, renterController.renterDeleteProfile);
 router.post("/renter/profile/avatar", auth, async (req, res) => {
   // console.log('new Avatar: ',req.body.avatar)
   console.log(req.body.avatar)
-  res.send(req.body.avatar)
+  req.renter.avatar = req.body.avatar;
+  await req.renter.save()
+  res.send("change avatar successful")
 });
 
 router.delete("/renter/profile/avatar", auth, async (req, res) => {
