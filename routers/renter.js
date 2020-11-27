@@ -25,7 +25,8 @@ router.delete("/renter/profile", auth, renterController.renterDeleteProfile);
 
 router.post("/renter/profile/avatar", auth, async (req, res) => {
   // console.log('new Avatar: ',req.body.avatar)
-  res.send(req.body)
+  const abc = req
+  res.send(abc)
 });
 
 router.delete("/renter/profile/avatar", auth, async (req, res) => {
