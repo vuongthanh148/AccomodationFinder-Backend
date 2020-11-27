@@ -45,7 +45,8 @@ const renterSchema = new mongoose.Schema(
       },
     ],
     avatar: {
-      type: [Buffer],
+      type: String,
+      default: 'https://i.imgur.com/fTZerDj.png'
     },
   },
   {

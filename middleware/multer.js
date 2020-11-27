@@ -3,7 +3,7 @@ const sharp = require('sharp')
 
 const upload = multer({
     limits: {
-        fileSize: 3000000
+        fileSize: 1000000
     },
     fileFilter(req, files, cb) {
         if (!files.originalname.match(/\.(jpg|jpeg|png)$/)) {
@@ -11,7 +11,8 @@ const upload = multer({
         }
 
         cb(undefined, true)
-    }
+    },
+    dest: './uploads/'
 })
 
 module.exports = upload

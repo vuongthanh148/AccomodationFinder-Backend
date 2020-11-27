@@ -4,13 +4,9 @@ const sharp = require('sharp');
 
 
 module.exports.renterSignup = async (req, res) => {
-    var imgBinary = fs.readFileSync('cat250.png');
-    imgBinary = await sharp(imgBinary).resize({ width: 250, height: 250 }).png().toBuffer();
     const renter = new Renter(req.body);
-    renter.avatar.push(imgBinary);
     try {
         await renter.save();
-        // await renter.save();
         const token = await renter.generateAuthToken()
         res.status(201).send({ renter, token })
     } catch (err) {
