@@ -35,6 +35,7 @@ const renterSchema = new mongoose.Schema(
     },
     follow: {
       type: [mongoose.Schema.Types.ObjectId],
+      ref: 'follow'
     },
     tokens: [
       {

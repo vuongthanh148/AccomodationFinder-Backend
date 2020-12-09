@@ -25,7 +25,7 @@ router.delete("/renter/profile", auth, renterController.renterDeleteProfile);
 
 router.post("/renter/profile/avatar", auth, async (req, res) => {
   // console.log('new Avatar: ',req.body.avatar)
-  console.log(req.body.avatar)
+  console.log(req.body.avatar) // Avatar link from frontend
   req.renter.avatar = req.body.avatar;
   await req.renter.save()
   res.send("change avatar successful")
@@ -44,8 +44,7 @@ router.get("/renter/:id/avatar", async (req, res) => {
     if (!renter || !renter.avatar) {
       throw new Error();
     }
-    res.set("Content-Type", "image/png");
-    res.send(renter.avatar[0]);
+    res.send(renter.avatar);
   } catch (e) {
     res.status(404).send();
   }

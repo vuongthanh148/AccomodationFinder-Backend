@@ -4,15 +4,17 @@ const cors = require('cors')
 const renterRouter = require('./routers/renter')
 const ownerRouter = require('./routers/owner')
 const adminRouter = require('./routers/admin')
+const accomodRouter = require('./routers/accommodation')
 
 const app = express()
-const port = process.env.PORT || 3001
+const port = process.env.PORT || 3000
 
 app.use(express.json())
 app.use(cors())
 app.use(renterRouter)
 app.use(ownerRouter)
 app.use(adminRouter)
+app.use(accomodRouter)
 
 
 app.listen(port, () => {

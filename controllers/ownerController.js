@@ -15,7 +15,7 @@ module.exports.ownerSignup = async (req, res) => {
                 res.status(422).send({ message: 'User already exist!' });
             }
             // Some other error
-            res.status(422).send(err);
+            else res.status(422).send(err);
         }
     }
 };
@@ -26,7 +26,7 @@ module.exports.ownerLogin = async (req, res) => {
         const token = await owner.generateAuthToken()
         res.send({ owner, token })
     } catch (e) {
-        res.status(400).send("Wrong email or password")
+        res.status(400).send(e)
     }
 };
 

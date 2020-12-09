@@ -3,7 +3,7 @@ const Renter = require('../models/renterModel');
 const Owner = require('../models/ownerModel');
 const Admin = require('../models/adminModel');
 
-const auth = async (req, res, next) => {
+const auth = async (req, res, next) => {//Get Token in header and add user to req
     try {
         const token = req.header('Authorization').replace('Bearer ', '')
         // console.log(token)
