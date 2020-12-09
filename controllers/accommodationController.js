@@ -101,7 +101,7 @@ module.exports.viewAccomod = async (req, res) => {
   console.log(req.body)
   try {
     await Accomod.find(req.body.accommodationInfo).populate("materialFacilities").exec((err, allAccomod) => {
-      if(allAccomod) res.send(req.body)
+      if(allAccomod) res.send({allAccomod)
       else res.send("Not found")
     });
   }
