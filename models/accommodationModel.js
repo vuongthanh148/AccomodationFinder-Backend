@@ -95,6 +95,10 @@ const accommodationSchema = mongoose.Schema({
     pending: {
         type: Boolean,
         default: true
+    },
+    avgRate: {
+        type: String,
+        default: (Math.round()*5)
     }
 })
 
