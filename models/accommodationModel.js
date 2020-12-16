@@ -98,7 +98,7 @@ const accommodationSchema = mongoose.Schema({
     },
     avgRate: {
         type: String,
-        default: (Math.random()*5)
+        default: (Math.random()*5).toFixed(2)
     }
 })
 
