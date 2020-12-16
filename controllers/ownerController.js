@@ -46,10 +46,10 @@ module.exports.ownerLogout = async (req, res) => {
 module.exports.ownerLogoutAll = async (req, res) => {
     try {
         req.owner.tokens = []
-        await req.user.save()
-        res.send()
+        await req.owner.save()
+        res.send({message: "Logout Successful"})
     } catch (e) {
-        res.status(500).send()
+        res.status(500).send(e)
     }
 };
 
