@@ -40,7 +40,7 @@ module.exports.ownerSignup = async (req, res) => {
                 res.send(error);
             } else {
               console.log('Email sent: ' + info.response);
-              res.send({objectOwner,response: info.response});
+              res.send({objectOwner,response: "Đăng ký thành công, vui lòng chờ chúng tôi xác minh tài khoản của bạn."});
             }
         });
         // res.send({objectOwner, message: "dcmm"});
