@@ -1,4 +1,5 @@
 const Renter = require("../models/renterModel");
+const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
   service: "Gmail",
