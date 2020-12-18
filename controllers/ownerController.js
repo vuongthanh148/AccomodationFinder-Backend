@@ -28,7 +28,7 @@ const transporter = nodemailer.createTransport({
 
 
 module.exports.ownerSignup = async (req, res) => {
-    const owner = new Owner(req.body);
+    const owner = new Owner(req.body).toObject();
     try {
         await owner.save();
         // const token = await owner.generateAuthToken()
@@ -38,9 +38,9 @@ module.exports.ownerSignup = async (req, res) => {
             } else {
                 delete owner.password;
               console.log('Email sent: ' + info.response);
-              res.send({owner, message: "Pending Account"});
             }
         });
+        res.send({owner, message: "Pending Account"});
         // res.send({owner, token})
     } catch (err) {
         console.log(err)
