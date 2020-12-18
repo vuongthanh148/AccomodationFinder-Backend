@@ -50,7 +50,6 @@ const ownerSchema = mongoose.Schema(
     },
     pending: {
       type: Boolean,
-      require: true,
       default: true,
     },
     tokens: [

@@ -99,6 +99,11 @@ const accommodationSchema = mongoose.Schema({
     avgRate: {
         type: String,
         default: (Math.random()*5).toFixed(1)
+    },
+    title: {
+        type: String,
+        required: true,
+        default: "cho thuê nhà trọ giá rẻ"
     }
 })
 

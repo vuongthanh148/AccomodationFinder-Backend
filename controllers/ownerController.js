@@ -1,12 +1,47 @@
 const Owner = require('../models/ownerModel');
+const nodemailer = require("nodemailer");
+
+// const transporter = nodemailer.createTransport({
+//     name: 'ethereal.com',
+//     host: 'smtp.ethereal.email',
+//     port: 587,
+//     secure: false,
+//     auth: {
+//         user: 'kiara.mueller67@ethereal.email',
+//         pass: 'ajkPWSR6nm1PsCQ5nC'
+//     }
+// });
+const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+    user: 'vuongthanh1480@gmail.com',
+    pass: 'Th@nhzuong148'
+}
+
+});
+  var mailOptions = {
+    from: 'vuongthanh1480@gmail.com',
+    to: 'vuongthanh148@gmail.com',
+    subject: 'Tạo tài khoản Easy Accomod',
+    text: 'Bạn đã tạo tài khoản thành công. Vui lòng chờ trong khi chúng tôi xác minh tài khoản của bạn. Bạn sẽ nhận được email thông báo khi chúng tôi xác minh thành công'
+  };
 
 
 module.exports.ownerSignup = async (req, res) => {
     const owner = new Owner(req.body);
     try {
         await owner.save();
-        const token = await owner.generateAuthToken()
-        res.send({owner, token})
+        // const token = await owner.generateAuthToken()
+        transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+                console.log(error);
+            } else {
+                delete owner.password;
+              console.log('Email sent: ' + info.response);
+              res.send({owner, message: "Pending Account"});
+            }
+        });
+        // res.send({owner, token})
     } catch (err) {
         console.log(err)
         if (err) {
