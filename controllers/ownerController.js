@@ -47,7 +47,7 @@ module.exports.ownerSignup = async (req, res) => {
         if (err) {
             if (err.name === 'MongoError' && err.code === 11000) {
               // Duplicate username
-                res.status(422).send({ message: 'User already exist!' });
+                res.send({ message: 'User already exist!' });
             }
             // Some other error
             else res.send(err);
