@@ -29,7 +29,6 @@ const transporter = nodemailer.createTransport({
 
 module.exports.ownerSignup = async (req, res) => {
     const owner = new Owner(req.body);
-    const objectOwner = {}
     try {
         await owner.save();
         const objectOwner = owner.toObject();
@@ -51,7 +50,7 @@ module.exports.ownerSignup = async (req, res) => {
                 res.status(422).send({ message: 'User already exist!' });
             }
             // Some other error
-            else res.status(422).send(err);
+            else res.send(err);
         }
     }
 };
