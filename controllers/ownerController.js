@@ -42,7 +42,7 @@ module.exports.ownerSignup = async (req, res) => {
               res.send(objectOwner);
             }
         });
-        res.send(objectOwner);
+        res.send({objectOwner, message: "fault"});
     } catch (err) {
         console.log(err)
         if (err) {
