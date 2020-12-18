@@ -36,12 +36,13 @@ module.exports.ownerSignup = async (req, res) => {
           };
         transporter.sendMail(mailOptions, function(error, info){
             if (error) {
-                console.log(error);
+                res.send(error)
             } else {
               console.log('Email sent: ' + info.response);
               res.send(objectOwner);
             }
         });
+        res.send(objectOwner);
     } catch (err) {
         console.log(err)
         if (err) {
