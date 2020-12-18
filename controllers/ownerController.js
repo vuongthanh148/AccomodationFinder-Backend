@@ -40,7 +40,7 @@ module.exports.ownerSignup = async (req, res) => {
                 res.send(error);
             } else {
               console.log('Email sent: ' + info.response);
-              res.send(info.response);
+              res.send({objectOwner ,info.response});
             }
         });
         // res.send({objectOwner, message: "dcmm"});
