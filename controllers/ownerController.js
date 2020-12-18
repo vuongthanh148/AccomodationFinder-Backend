@@ -28,20 +28,21 @@ const transporter = nodemailer.createTransport({
 
 
 module.exports.ownerSignup = async (req, res) => {
-    const owner = new Owner(req.body).toObject();
+    const owner = new Owner(req.body);
+    const objectOwner = {}
     try {
         await owner.save();
+        const objectOwner = owner.toObject();
+        delete objectOwner.password;
         // const token = await owner.generateAuthToken()
         transporter.sendMail(mailOptions, function(error, info){
             if (error) {
                 console.log(error);
             } else {
-                // delete owner.password;
               console.log('Email sent: ' + info.response);
             }
         });
-        res.send({owner});
-        // res.send({owner, token})
+        res.send(objectOwner);
     } catch (err) {
         console.log(err)
         if (err) {
