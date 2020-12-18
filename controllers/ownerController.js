@@ -37,13 +37,13 @@ module.exports.ownerSignup = async (req, res) => {
           };
         transporter.sendMail(mailOptions, function(error, info){
             if (error) {
-                res.send(error)
+                res.send(error);
             } else {
               console.log('Email sent: ' + info.response);
               res.send(info.response);
             }
         });
-        res.send({objectOwner, message: "dcmm"});
+        // res.send({objectOwner, message: "dcmm"});
     } catch (err) {
         console.log(err)
         if (err) {
