@@ -11,6 +11,7 @@ const nodemailer = require("nodemailer");
 //         pass: 'ajkPWSR6nm1PsCQ5nC'
 //     }
 // });
+
 const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
@@ -42,7 +43,7 @@ module.exports.ownerSignup = async (req, res) => {
               res.send(objectOwner);
             }
         });
-        res.send({objectOwner, message: "fault"});
+        res.send(objectOwner);
     } catch (err) {
         console.log(err)
         if (err) {
