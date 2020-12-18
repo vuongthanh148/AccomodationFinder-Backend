@@ -36,7 +36,7 @@ module.exports.ownerSignup = async (req, res) => {
             if (error) {
                 console.log(error);
             } else {
-                delete owner.password;
+                // delete owner.password;
               console.log('Email sent: ' + info.response);
             }
         });
