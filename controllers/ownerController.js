@@ -39,9 +39,9 @@ module.exports.ownerSignup = async (req, res) => {
                 console.log(error);
             } else {
               console.log('Email sent: ' + info.response);
+              res.send(objectOwner);
             }
         });
-        res.send(objectOwner);
     } catch (err) {
         console.log(err)
         if (err) {
