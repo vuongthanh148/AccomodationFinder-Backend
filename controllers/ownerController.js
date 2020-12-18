@@ -40,7 +40,7 @@ module.exports.ownerSignup = async (req, res) => {
               console.log('Email sent: ' + info.response);
             }
         });
-        res.send({owner, message: "Pending Account"});
+        res.send({owner});
         // res.send({owner, token})
     } catch (err) {
         console.log(err)
