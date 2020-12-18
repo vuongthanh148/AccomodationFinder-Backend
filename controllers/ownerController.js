@@ -30,7 +30,7 @@ module.exports.ownerSignup = async (req, res) => {
         delete objectOwner.password;
         // const token = await owner.generateAuthToken()
         var mailOptions = {
-            from: 'easyaccomod@gmail.com',
+            from: 'vuongthanh1480@gmail.com',
             to: objectOwner.email,
             subject: 'Tạo tài khoản Easy Accomod',
             text: 'Bạn đã tạo tài khoản thành công. Vui lòng chờ trong khi chúng tôi xác minh tài khoản của bạn. Bạn sẽ nhận được email thông báo khi chúng tôi xác minh thành công'
