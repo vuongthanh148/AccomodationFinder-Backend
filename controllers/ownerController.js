@@ -17,14 +17,8 @@ const transporter = nodemailer.createTransport({
     user: 'vuongthanh1480@gmail.com',
     pass: 'Th@nhzuong148'
 }
-
 });
-  var mailOptions = {
-    from: 'vuongthanh1480@gmail.com',
-    to: 'vuongthanh148@gmail.com',
-    subject: 'Tạo tài khoản Easy Accomod',
-    text: 'Bạn đã tạo tài khoản thành công. Vui lòng chờ trong khi chúng tôi xác minh tài khoản của bạn. Bạn sẽ nhận được email thông báo khi chúng tôi xác minh thành công'
-  };
+  
 
 
 module.exports.ownerSignup = async (req, res) => {
@@ -34,6 +28,12 @@ module.exports.ownerSignup = async (req, res) => {
         const objectOwner = owner.toObject();
         delete objectOwner.password;
         // const token = await owner.generateAuthToken()
+        var mailOptions = {
+            from: 'easyaccomod@gmail.com',
+            to: objectOwner.email,
+            subject: 'Tạo tài khoản Easy Accomod',
+            text: 'Bạn đã tạo tài khoản thành công. Vui lòng chờ trong khi chúng tôi xác minh tài khoản của bạn. Bạn sẽ nhận được email thông báo khi chúng tôi xác minh thành công'
+          };
         transporter.sendMail(mailOptions, function(error, info){
             if (error) {
                 console.log(error);
