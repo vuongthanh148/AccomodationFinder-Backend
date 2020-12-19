@@ -76,7 +76,7 @@ module.exports.renterLogout = async (req, res) => {
 module.exports.renterLogoutAll = async (req, res) => {
   try {
     req.renter.tokens = [];
-    await req.user.save();
+    await req.renter.save();
     res.send();
   } catch (e) {
     res.status(500).send();
