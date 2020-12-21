@@ -102,7 +102,7 @@ module.exports.viewAccomod = async (req, res) => {
   try {
     await Accomod.find(req.body.accommodationInfo).populate("materialFacilities").where('').exec((err, allAccomod) => {
       if(allAccomod){
-        if(Object.key(req.body.facilitiesInfo).length !== 0){
+        if(Object.keys(req.body.facilitiesInfo).length !== 0){
           var newAccomodList = allAccomod.filter(accomod => {
             for(const faci in req.body.facilitiesInfo){
               if(faci === "bathroom") return accomod.materialFacilities[faci].seperate === req.body.facilitiesInfo[faci]
