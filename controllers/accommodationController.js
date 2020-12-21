@@ -100,8 +100,22 @@ function removeAccents(str) {
 module.exports.viewAccomod = async (req, res) => {
   console.log(req.body)
   try {
-    await Accomod.find(req.body.accommodationInfo).populate("materialFacilities").exec((err, allAccomod) => {
-      if(allAccomod) res.send({allAccomod})
+    await Accomod.find(req.body.accommodationInfo).populate("materialFacilities").where('').exec((err, allAccomod) => {
+      if(allAccomod){
+        if(Object.key(req.body.facilitiesInfo).length !== 0){
+          var newAccomodList = allAccomod.filter(accomod => {
+            for(const faci in req.body.facilitiesInfo){
+              if(faci === "bathroom") return accomod.materialFacilities[faci].seperate === req.body.facilitiesInfo[faci]
+              if(faci === "kitchen") return accomod.materialFacilities[faci] === req.body.facilitiesInfo[faci]
+              if(faci === "airConditioner") return accomod.materialFacilities[faci] === req.body.facilitiesInfo[faci]
+              if(faci === "electricWaterHeater") return accomod.materialFacilities[faci] === req.body.facilitiesInfo[faci]
+            }
+            return true;
+          })
+        }
+        // else res.send({newAccomodList})
+        else res.send(req.body)
+      } 
       else res.send("Not found")
     });
   }
