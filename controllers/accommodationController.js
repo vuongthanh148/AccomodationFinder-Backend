@@ -100,7 +100,8 @@ function removeAccents(str) {
 module.exports.viewAccomod = async (req, res) => {
   console.log(req.body)
   try {
-    await Accomod.find(req.body.accommodationInfo).populate("materialFacilities").exec((err, allAccomod) => {
+    await Accomod.find(req.body.accommodationInfo).populate("materialFacilities").where('price').lte(req.body.price)
+    .exec((err, allAccomod) => {
       if(allAccomod){
         if(Object.keys(req.body.facilitiesInfo).length !== 0){
           var newAccomodList = allAccomod.filter(accomod => {
