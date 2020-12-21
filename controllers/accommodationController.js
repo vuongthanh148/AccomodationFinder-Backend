@@ -112,11 +112,11 @@ module.exports.viewAccomod = async (req, res) => {
             }
             return true;
           })
-          console.log("newAccomod: ", newAccomodList)
+          // console.log("newAccomod: ", newAccomodList.length)
           res.send({newAccomodList});
         } else {
           res.send({allAccomod})
-          console.log("newAccomod: ", allAccomod)
+          // console.log("newAccomod: ", allAccomod.length)
         }
         // else res.send(req.body)
       } 
