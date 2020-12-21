@@ -113,8 +113,8 @@ module.exports.viewAccomod = async (req, res) => {
             return true;
           })
         }
-        // else res.send({newAccomodList})
-        else res.send(req.body)
+        else res.send({newAccomodList})
+        // else res.send(req.body)
       } 
       else res.send("Not found")
     });
