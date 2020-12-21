@@ -112,9 +112,12 @@ module.exports.viewAccomod = async (req, res) => {
             }
             return true;
           })
+          console.log("newAccomod: ", newAccomodList)
           res.send({newAccomodList});
+        } else {
+          res.send({allAccomod})
+          console.log("newAccomod: ", allAccomod)
         }
-        else res.send({allAccomod})
         // else res.send(req.body)
       } 
       else res.send("Not found")
