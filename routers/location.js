@@ -17,7 +17,8 @@ router.post('/location/new', async (req,res) => {
         res.send(newLocation);
     }
     catch(e) {
-        res.send(e)
+        if(e.code === "11000") res.send("duplicate location")
+        else res.send(e)
     }
 })
 
