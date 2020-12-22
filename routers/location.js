@@ -10,11 +10,12 @@ router.get('/location',async (req,res) => {
 })
 
 //Add new Location
-router.post('/location/new',async (req,res) => {
+router.post('/location/new', async (req,res) => {
+    console.log(req.body)
     try{
         const newLocation = new publicLocation(req.body.location);
         await newLocation.save();
-        res.send();
+        res.send(newLocation);
     }
     catch(e) {
         res.send(e)
