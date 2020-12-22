@@ -3,7 +3,9 @@ const mongoose = require("mongoose");
 const publicLocation = mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true,
+        trim: true
     }
 });
 
