@@ -7,4 +7,4 @@ const publicLocation = mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model("rating", publicLocation);
+module.exports = mongoose.model("location", publicLocation);

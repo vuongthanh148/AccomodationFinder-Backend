@@ -1,5 +1,4 @@
 const express = require('express')
-const auth = require('../middleware/auth')
 const router = new express.Router()
 const publicLocation = require('../models/publicLocationModel');
 
@@ -11,7 +10,7 @@ router.get('/location',async (req,res) => {
 
 //Add new Location
 router.post('/location/new', async (req,res) => {
-    console.log(req.body)
+    console.log(req.body);
     try{
         const newLocation = new publicLocation(req.body.location);
         await newLocation.save();
