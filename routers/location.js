@@ -12,7 +12,7 @@ router.get('/location',async (req,res) => {
 router.post('/location/new', async (req,res) => {
     console.log(req.body);
     try{
-        const newLocation = new publicLocation(req.body.location);
+        const newLocation = new publicLocation(req.body);
         await newLocation.save();
         res.send(newLocation);
     }
