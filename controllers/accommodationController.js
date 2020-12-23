@@ -77,12 +77,12 @@ const flattenObject = function (ob) {
   for (var i in ob) {
     if (!ob.hasOwnProperty(i)) continue;
 
-    if (typeof ob[i] == 'object') {
+    if (typeof ob[i] == "object") {
       var flatObject = flattenObject(ob[i]);
       for (var x in flatObject) {
         if (!flatObject.hasOwnProperty(x)) continue;
 
-        toReturn[i + '.' + x] = flatObject[x];
+        toReturn[i + "." + x] = flatObject[x];
       }
     } else {
       toReturn[i] = ob[i];
@@ -92,43 +92,69 @@ const flattenObject = function (ob) {
 };
 
 function removeAccents(str) {
-  return str.normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .replace(/đ/g, 'd').replace(/Đ/g, 'D').replace(/Quan |Huyen |Thi Xa |Thanh Pho /g, '');
+  return str
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/đ/g, "d")
+    .replace(/Đ/g, "D")
+    .replace(/Quan |Huyen |Thi Xa |Thanh Pho /g, "");
 }
 
 module.exports.viewAccomod = async (req, res) => {
-  console.log(req.body)
+  console.log(req.body);
   try {
-    await Accomod.find(req.body.accommodationInfo).populate("materialFacilities").where('livingArea').lte(req.body.livingArea)
-    .where('price').lte(req.body.price)
-    .exec((err, allAccomod) => {
-      if(allAccomod){
-        if(Object.keys(req.body.facilitiesInfo).length !== 0){
-          var newAccomodList = allAccomod.filter(accomod => {
-            for(const faci in req.body.facilitiesInfo){
-              if(faci === "bathroom") return accomod.materialFacilities[faci].seperate === req.body.facilitiesInfo[faci]
-              if(faci === "kitchen") return accomod.materialFacilities[faci] === req.body.facilitiesInfo[faci]
-              if(faci === "airConditioner") return accomod.materialFacilities[faci] === req.body.facilitiesInfo[faci]
-              if(faci === "electricWaterHeater") return accomod.materialFacilities[faci] === req.body.facilitiesInfo[faci]
-            }
-            return true;
-          })
-          // console.log("newAccomod: ", newAccomodList.length)
-          res.send({newAccomodList});
-        } else {
-          res.send({allAccomod})
-          // console.log("newAccomod: ", allAccomod.length)
-        }
-        // else res.send(req.body)
-      } 
-      else res.send("Not found")
-    });
+    await Accomod.find(req.body.accommodationInfo)
+      .populate("materialFacilities")
+      .where("livingArea")
+      .lte(req.body.livingArea)
+      .where("price")
+      .lte(req.body.price)
+      .where("livingArea")
+      .lte(req.body.livingArea)
+      .where("publicPlace")
+      .equals(req.body.publicPlace)
+      .where("seperateAccommodation")
+      .equals(req.body.seperateAccommodation)
+      .exec((err, allAccomod) => {
+        if (allAccomod) {
+          if (Object.keys(req.body.facilitiesInfo).length !== 0) {
+            var newAccomodList = allAccomod.filter((accomod) => {
+              for (const faci in req.body.facilitiesInfo) {
+                if (faci === "bathroom")
+                  return (
+                    accomod.materialFacilities[faci].seperate ===
+                    req.body.facilitiesInfo[faci]
+                  );
+                if (faci === "kitchen")
+                  return (
+                    accomod.materialFacilities[faci] ===
+                    req.body.facilitiesInfo[faci]
+                  );
+                if (faci === "airConditioner")
+                  return (
+                    accomod.materialFacilities[faci] ===
+                    req.body.facilitiesInfo[faci]
+                  );
+                if (faci === "electricWaterHeater")
+                  return (
+                    accomod.materialFacilities[faci] ===
+                    req.body.facilitiesInfo[faci]
+                  );
+              }
+              return true;
+            });
+            // console.log("newAccomod: ", newAccomodList.length)
+            res.send({ newAccomodList });
+          } else {
+            res.send({ allAccomod });
+            // console.log("newAccomod: ", allAccomod.length)
+          }
+          // else res.send(req.body)
+        } else res.send("Not found");
+      });
+  } catch (e) {
+    console.log(e);
   }
-  catch(e){
-    console.log(e)
-  }
-
 };
 // module.exports.viewAccomod = async (req, res) => {
 //   try {
