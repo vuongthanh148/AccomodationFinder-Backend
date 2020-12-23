@@ -1,7 +1,6 @@
 const Owner = require("../models/ownerModel");
 const Follow = require("../models/followModel");
 const nodemailer = require("nodemailer");
-const followModel = require("../models/followModel");
 
 const transporter = nodemailer.createTransport({
   service: "Gmail",
@@ -12,14 +11,14 @@ const transporter = nodemailer.createTransport({
 });
 
 module.exports.ownerSignup = async (req, res) => {
-  const owner = new Owner(req.body);
+  const owner = new Owner(req.body).toObject();
   const newFollow = new Follow({userId: owner._id});
   owner.follow = newFollow._id;
   console.log(owner)
   try {
     await owner.save();
     await newFollow.save();
-    const objectOwner = owner.toObject();
+    const objectOwner = owner;
     delete objectOwner.password;
     // const token = await owner.generateAuthToken()
     var mailOptions = {
