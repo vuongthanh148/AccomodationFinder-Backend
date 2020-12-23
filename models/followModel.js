@@ -7,7 +7,6 @@ const followSchema = mongoose.Schema({
 	},
 	accommodation: {
 		type: [mongoose.Schema.Types.ObjectId],
-		required: true,
 		default: []
 	},
 });
