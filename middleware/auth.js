@@ -13,21 +13,21 @@ const auth = async (req, res, next) => {
       _id: decoded._id,
       "tokens.token": token,
     })
-      .populated("follow")
+      .populate("follow")
       .populate("comment");
 
     const owner = await Owner.findOne({
       _id: decoded._id,
       "tokens.token": token,
     })
-      .populated("follow")
+      .populate("follow")
       .populate("comment");
 
     const admin = await Admin.findOne({
       _id: decoded._id,
       "tokens.token": token,
     })
-      .populated("follow")
+      .populate("follow")
       .populate("comment");
     if (!renter && !owner && !admin) {
       throw new Error();
