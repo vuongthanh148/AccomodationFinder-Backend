@@ -154,9 +154,11 @@ module.exports.ownerApprove = async (req, res) => {
 
 module.exports.followChange = async (req, res) => {\
   const owner = req.owner;
-  
+  console.log(req)
+  console.log(owner)
   try {
     const index = owner.follow.accommodation.indexOf(req.accomodId);
+
     if(index !== -1){ //exist
       owner.follow.accommodation.splice(index,1);
       res.send({message: "unfollow successfully"})
