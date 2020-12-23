@@ -85,7 +85,7 @@ ownerSchema.methods.generateAuthToken = async function () {
 };
 
 ownerSchema.statics.findByCredentials = async (email, password) => {
-  const owner = await Owner.findOne({ email }).populated('follow');
+  const owner = await Owner.findOne({ email }).populate('follow');
 
   if (!owner) {
     throw new Error("Cannot find email");
