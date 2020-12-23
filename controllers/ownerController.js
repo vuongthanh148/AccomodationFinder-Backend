@@ -15,6 +15,7 @@ module.exports.ownerSignup = async (req, res) => {
   const owner = new Owner(req.body);
   const newFollow = new Follow({userId: owner._id});
   owner.follow = newFollow._id;
+  console.log(owner)
   try {
     await owner.save();
     await newFollow.save();
