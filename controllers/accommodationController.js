@@ -103,57 +103,55 @@ function removeAccents(str) {
 module.exports.viewAccomod = async (req, res) => {
   console.log(req.body);
   try {
-    const accomods = await Accomod.find({});
-    res.send(accomods)
-    // await Accomod.find(req.body.accommodationInfo)
-    //   .populate("materialFacilities")
-    //   .where("livingArea")
-    //   .lte(req.body.livingArea)
-    //   .where("price")
-    //   .lte(req.body.price)
-    //   .where("livingArea")
-    //   .lte(req.body.livingArea)
-    //   .where("publicPlace")
-    //   .equals(req.body.publicPlace)
-    //   .where("seperateAccommodation")
-    //   .equals(req.body.seperateAccommodation)
-    //   .exec((err, allAccomod) => {
-    //     if (allAccomod) {
-    //       if (Object.keys(req.body.facilitiesInfo).length !== 0) {
-    //         var newAccomodList = allAccomod.filter((accomod) => {
-    //           for (const faci in req.body.facilitiesInfo) {
-    //             if (faci === "bathroom")
-    //               return (
-    //                 accomod.materialFacilities[faci].seperate ===
-    //                 req.body.facilitiesInfo[faci]
-    //               );
-    //             if (faci === "kitchen")
-    //               return (
-    //                 accomod.materialFacilities[faci] ===
-    //                 req.body.facilitiesInfo[faci]
-    //               );
-    //             if (faci === "airConditioner")
-    //               return (
-    //                 accomod.materialFacilities[faci] ===
-    //                 req.body.facilitiesInfo[faci]
-    //               );
-    //             if (faci === "electricWaterHeater")
-    //               return (
-    //                 accomod.materialFacilities[faci] ===
-    //                 req.body.facilitiesInfo[faci]
-    //               );
-    //           }
-    //           return true;
-    //         });
-    //         // console.log("newAccomod: ", newAccomodList.length)
-    //         res.send({ newAccomodList });
-    //       } else {
-    //         res.send({ allAccomod });
-    //         // console.log("newAccomod: ", allAccomod.length)
-    //       }
-    //       // else res.send(req.body)
-    //     } else res.send("Not found");
-    //   });
+    await Accomod.find(req.body.accommodationInfo)
+      .populate("materialFacilities")
+      // .where("livingArea")
+      // .lte(req.body.livingArea)
+      // .where("price")
+      // .lte(req.body.price)
+      // .where("livingArea")
+      // .lte(req.body.livingArea)
+      // .where("publicPlace")
+      // .equals(req.body.publicPlace)
+      // .where("seperateAccommodation")
+      // .equals(req.body.seperateAccommodation)
+      .exec((err, allAccomod) => {
+        if (allAccomod) {
+          if (Object.keys(req.body.facilitiesInfo).length !== 0) {
+            var newAccomodList = allAccomod.filter((accomod) => {
+              for (const faci in req.body.facilitiesInfo) {
+                if (faci === "bathroom")
+                  return (
+                    accomod.materialFacilities[faci].seperate ===
+                    req.body.facilitiesInfo[faci]
+                  );
+                if (faci === "kitchen")
+                  return (
+                    accomod.materialFacilities[faci] ===
+                    req.body.facilitiesInfo[faci]
+                  );
+                if (faci === "airConditioner")
+                  return (
+                    accomod.materialFacilities[faci] ===
+                    req.body.facilitiesInfo[faci]
+                  );
+                if (faci === "electricWaterHeater")
+                  return (
+                    accomod.materialFacilities[faci] ===
+                    req.body.facilitiesInfo[faci]
+                  );
+              }
+              return true;
+            });
+            // console.log("newAccomod: ", newAccomodList.length)
+            res.send({ newAccomodList });
+          } else {
+            res.send({ allAccomod });
+            // console.log("newAccomod: ", allAccomod.length)
+          }
+          // else res.send(req.body)
+        } else res.send("Not found");
+      });
   } catch (e) {
     console.log(e);
   }
