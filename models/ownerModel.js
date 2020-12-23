@@ -49,7 +49,7 @@ const ownerSchema = mongoose.Schema(
       match: /(03|07|08|09|01[2|6|8|9])+([0-9]{8})/,
     },
     follow: {
-      type: [mongoose.Schema.Types.ObjectId],
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'follow'
     },
     pending: {
