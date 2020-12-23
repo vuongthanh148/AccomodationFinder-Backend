@@ -59,7 +59,7 @@ module.exports.ownerLogin = async (req, res) => {
     const owner = await Owner.findByCredentials(
       req.body.email,
       req.body.password
-    ).populate('follow');
+    )
     const token = await owner.generateAuthToken();
     res.send({ owner, token });
   } catch (e) {
