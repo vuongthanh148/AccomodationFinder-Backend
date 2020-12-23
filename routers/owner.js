@@ -22,6 +22,8 @@ router.patch('/owner/approve', ownerController.ownerApprove)
 
 router.delete('/owner/profile', auth, ownerController.ownerDeleteProfile)
 
+router.post('/owner/follow', auth, ownerController.followChange)
+
 router.post('/owner/profile/avatar', auth, async (req, res) => {
     console.log(req.body.avatar) // Avatar link from frontend
   req.owner.avatar = req.body.avatar;

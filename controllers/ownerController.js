@@ -151,3 +151,23 @@ module.exports.ownerApprove = async (req, res) => {
     res.status(400).send(e);
   }
 };
+
+module.exports.followChange = async (req, res) => {\
+  const owner = req.owner;
+  
+  try {
+    const index = owner.follow.accommodation.indexOf(req.accomodId);
+    if(index !== -1){ //exist
+      owner.follow.accommodation.splice(index,1);
+      res.send({message: "unfollow successfully"})
+    }
+    else{
+      owner.follow.accommodation.push(req.accomodId);
+    }
+  } catch (e) {
+    console.log(e);
+    res.send(e);
+  }
+};
+
+
