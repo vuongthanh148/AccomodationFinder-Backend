@@ -152,21 +152,22 @@ module.exports.ownerApprove = async (req, res) => {
   }
 };
 
-module.exports.followChange = async (req, res) => {\
-  const owner = req.owner;
-  console.log(req)
-  console.log(owner)
-  res.send("abc")
-  // try {
-  //   const index = owner.follow.accommodation.indexOf(req.accomodId);
+module.exports.followChange = async (req, res) => {
+  const follow = await Follow.findOne({_id: req.owner.follow._id})
+  try {
+    const index = follow.accommodation.indexOf(req.body.accomodId);
 
-  //   if(index !== -1){ //exist
-  //     owner.follow.accommodation.splice(index,1);
-  //     res.send({message: "unfollow successfully"})
-  //   }
-  //   else{
-  //     owner.follow.accommodation.push(req.accomodId);
-  //   }
+    if(index !== -1){ //exist
+      follow.accommodation.splice(index,1);
+      await follow.save();
+      res.send({message: "unfollow successfully"})
+    }
+    else{
+      follow.accommodation.push(req.body.accomodId);
+      console.log("after push",req.owner)
+      await follow.save();
+      res.send({message: "follow successfully"})
+    }
   } catch (e) {
     console.log(e);
     res.send(e);
