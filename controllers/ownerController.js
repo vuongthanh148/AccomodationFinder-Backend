@@ -164,7 +164,6 @@ module.exports.followChange = async (req, res) => {
     }
     else{
       follow.accommodation.push(req.body.accomodId);
-      console.log("after push",req.owner)
       await follow.save();
       res.send({message: "follow successfully"})
     }
