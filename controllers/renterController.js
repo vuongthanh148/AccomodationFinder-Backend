@@ -115,3 +115,24 @@ module.exports.renterDeleteProfile = async (req, res) => {
     res.status(500).send();
   }
 };
+
+module.exports.followChange = async (req, res) => {
+  const follow = await Follow.findOne({_id: req.renter.follow._id});
+  try {
+    const index = follow.accommodation.indexOf(req.body.accomodId);
+
+    if(index !== -1){ //exist
+      follow.accommodation.splice(index,1);
+      await follow.save();
+      res.send({isFollowed: false})
+    }
+    else{
+      follow.accommodation.push(req.body.accomodId);
+      await follow.save();
+      res.send({isFollowed: true})
+    }
+  } catch (e) {
+    console.log(e);
+    res.send(e);
+  }
+};

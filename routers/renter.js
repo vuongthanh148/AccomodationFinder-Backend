@@ -23,6 +23,8 @@ router.patch("/renter/profile", auth, renterController.renterUpdateProfile);
 
 router.delete("/renter/profile", auth, renterController.renterDeleteProfile);
 
+router.post('/renter/follow', auth, renterController.followChange)
+
 router.post("/renter/profile/avatar", auth, async (req, res) => {
   // console.log('new Avatar: ',req.body.avatar)
   console.log(req.body.avatar) // Avatar link from frontend
