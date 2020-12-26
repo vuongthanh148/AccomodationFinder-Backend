@@ -39,7 +39,7 @@ const auth = async (req, res, next) => {
     else if (admin) req.admin = admin;
     next();
   } catch (e) {
-    res.status(401).send({ error: "Please authenticate." });
+    res.send({ error: "Please authenticate." });
   }
 };
 
