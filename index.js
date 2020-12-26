@@ -6,6 +6,7 @@ const ownerRouter = require('./routers/owner')
 const adminRouter = require('./routers/admin')
 const accomodRouter = require('./routers/accommodation')
 const locationRouter = require('./routers/location')
+const followRouter = require('./routers/follow')
 
 const app = express()
 const port = process.env.PORT || 3001
@@ -17,6 +18,7 @@ app.use(ownerRouter)
 app.use(adminRouter)
 app.use(accomodRouter)
 app.use(locationRouter)
+app.use(followRouter)
 
 
 app.listen(port, () => {

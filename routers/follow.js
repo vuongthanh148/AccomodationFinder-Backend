@@ -10,16 +10,25 @@ router.get('/followList', auth, async (req,res) => {
 })
 
 //Add new Location
-router.post('/location/new', async (req,res) => {
+router.post('/followChange', async (req,res) => {
     console.log(req.body);
-    try{
-        const newLocation = new publicLocation(req.body);
-        await newLocation.save();
-        res.send(newLocation);
-    }
-    catch(e) {
-        if(e.code === "11000") res.send("duplicate location")
-        else res.send(e)
+    const follow = await Follow.findOne({_id: req.owner.follow._id});
+    try {
+      const index = follow.accommodation.indexOf(req.body.accomodId);
+  
+      if(index !== -1){ //exist
+        follow.accommodation.splice(index,1);
+        await follow.save();
+        res.send({isFollowed: false})
+      }
+      else{
+        follow.accommodation.push(req.body.accomodId);
+        await follow.save();
+        res.send({isFollowed: true})
+      }
+    } catch (e) {
+      console.log(e);
+      res.send(e);
     }
 })
 
