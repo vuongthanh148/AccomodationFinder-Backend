@@ -7,8 +7,9 @@ const auth = require('../middleware/auth')
 router.get('/followList', auth, async (req,res) => {
     const _id = req.body._id;
     try{
-      const list = await Follow.findOne({_id: _id});
-      res.send(list.accommodation);
+      const list = await Follow.findOne({userId: _id});
+      if(list) res.send(list.accommodation);
+      else res.send([])
 
     }
     catch(e){
