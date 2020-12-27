@@ -1,8 +1,7 @@
 const express = require('express')
 const auth = require('../middleware/auth')
-const accomodController = require('../controllers/accommodationController');
-const router = new express.Router()
-
+const accomodController = require('../controllers/accommodationController')
+const router = express.Router()
 
 router.post('/accommodation/newAccomod', auth, accomodController.newAccomod)
 
