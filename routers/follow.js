@@ -6,8 +6,14 @@ const auth = require('../middleware/auth')
 //Get All Location
 router.get('/followList', auth, async (req,res) => {
     const _id = req.body._id;
-    const list = await Follow.findOne({_id: _id});
-    res.send(list.accommodation);
+    try{
+      const list = await Follow.findOne({_id: _id});
+      res.send(list.accommodation);
+
+    }
+    catch(e){
+      console.log(e)
+    }
 })
 
 //Add new Location
