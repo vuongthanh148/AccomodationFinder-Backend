@@ -7,6 +7,7 @@ const adminRouter = require('./routers/admin')
 const accomodRouter = require('./routers/accommodation')
 const locationRouter = require('./routers/location')
 const followRouter = require('./routers/follow')
+const commentRouter = require('./routers/comment.model')
 
 const app = express()
 const port = process.env.PORT || 4000
@@ -20,7 +21,8 @@ app.use(accomodRouter)
 app.use(locationRouter)
 app.use(followRouter)
 
+app.use('/comment', commentRouter)
 
 app.listen(port, () => {
-    console.log('Server is up on port ' + port)
+  console.log('Server is up on port ' + port)
 })
