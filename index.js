@@ -7,7 +7,7 @@ const adminRouter = require('./routers/admin')
 const accomodRouter = require('./routers/accommodation')
 const locationRouter = require('./routers/location')
 const followRouter = require('./routers/follow')
-const commentRouter = require('./routers/comment.model')
+const commentRouter = require('./routers/comment.router')
 
 const app = express()
 const port = process.env.PORT || 4000
