@@ -1,6 +1,7 @@
 const express = require('express')
 const router = new express.Router()
 const Follow = require('../models/followModel');
+const auth = require('../middleware/auth')
 
 //Get All Location
 router.get('/followList', auth, async (req,res) => {
