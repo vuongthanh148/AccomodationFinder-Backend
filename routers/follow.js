@@ -4,7 +4,7 @@ const Follow = require('../models/followModel');
 const auth = require('../middleware/auth')
 
 //Get All Location
-router.get('/followList', auth, async (req,res) => {
+router.post('/followList', auth, async (req,res) => {
     console.log(req.body)
     const _id = req.body._id;
     try{
