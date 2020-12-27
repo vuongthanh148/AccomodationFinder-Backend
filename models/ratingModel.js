@@ -1,9 +1,10 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
 const ratingSchema = mongoose.Schema({
   accommodationId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
+    ref: 'accommodation',
   },
   rate: [
     {
@@ -22,15 +23,15 @@ const ratingSchema = mongoose.Schema({
     },
   ],
   avgRate: {
-    type: Number
-  }
-});
+    type: Number,
+  },
+})
 
-ratingSchema.pre("save", function (next) {
+ratingSchema.pre('save', function (next) {
   this.avgRate = this.rate.reduce((avg, r) => {
-    return avg + r.stars / this.rate.length;
-  }, 0);
-  next();
-});
+    return avg + r.stars / this.rate.length
+  }, 0)
+  next()
+})
 
-module.exports = mongoose.model("rating", ratingSchema);
+module.exports = mongoose.model('rating', ratingSchema)

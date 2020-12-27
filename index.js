@@ -9,7 +9,7 @@ const locationRouter = require('./routers/location')
 const followRouter = require('./routers/follow')
 
 const app = express()
-const port = process.env.PORT || 3001
+const port = process.env.PORT || 4000
 
 app.use(express.json())
 app.use(cors())
