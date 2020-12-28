@@ -66,16 +66,16 @@ renterSchema.methods.generateAuthToken = async function () {
 }
 
 renterSchema.statics.findByCredentials = async (email, password) => {
-  const renter = await Renter.findOne({ email })
+  const renter = await Renter.findOne({ email }).populate('follow');
 
   if (!renter) {
-    throw new Error('Unable to login')
+    throw new Error('Cannot find email')
   }
 
   const isMatch = await bcrypt.compare(password, renter.password)
 
   if (!isMatch) {
-    throw new Error('Unable to login')
+    throw new Error('Wrong password')
   }
 
   return renter
