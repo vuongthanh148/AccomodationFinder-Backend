@@ -63,7 +63,7 @@ module.exports.ownerLogin = async (req, res) => {
     const token = await owner.generateAuthToken()
     res.send({ user: owner, token })
   } catch (e) {
-    res.status(400).send(e)
+    res.send(e)
   }
 }
 
