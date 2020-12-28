@@ -52,4 +52,21 @@ router.delete('/accommodation', async (req, res) => {
   }
 })
 
+router.post('/accommodation/analyst', async (req, res) => {
+  const { accommodationId } = req.body
+  try {
+    const accommodation = await Accommodation.findById(accommodationId)
+    accommodation.watch++
+    await accommodation.save()
+    res.json({
+      success: true,
+    })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({
+      success: false,
+    })
+  }
+})
+
 module.exports = router
