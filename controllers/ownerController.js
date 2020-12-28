@@ -64,7 +64,8 @@ module.exports.ownerLogin = async (req, res) => {
     res.send({ user: owner, token })
   } catch (e) {
     console.log(e.message)
-    res.status(401).send(e)
+    res.status(401)
+    res.send(e.message)
   }
 }
 
