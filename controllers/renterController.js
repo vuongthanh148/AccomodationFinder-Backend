@@ -1,4 +1,5 @@
 const Renter = require('../models/renterModel')
+const Follow = require('../models/followModel')
 const nodemailer = require('nodemailer')
 
 const transporter = nodemailer.createTransport({
