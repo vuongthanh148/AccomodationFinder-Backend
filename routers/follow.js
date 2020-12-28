@@ -20,7 +20,7 @@ router.post('/followList', auth, async (req,res) => {
 //Add new Location
 router.post('/followChange', async (req,res) => {
     console.log(req.body);
-    const follow
+    let follow = {};
     if(req.owner) follow = await Follow.findOne({_id: req.owner.follow._id});
     if(req.renter) follow = await Follow.findOne({_id: req.renter.follow._id});
     try {
