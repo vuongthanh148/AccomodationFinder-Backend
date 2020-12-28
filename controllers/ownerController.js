@@ -104,6 +104,7 @@ module.exports.ownerUpdateProfile = async (req, res) => {
   )
 
   if (!isValidOperation) {
+    console.log('dit me may')
     return res.status(400).send({ error: 'Invalid updates!' })
   }
 
@@ -112,7 +113,8 @@ module.exports.ownerUpdateProfile = async (req, res) => {
     await req.owner.save()
     res.send(req.owner)
   } catch (e) {
-    res.status(400).send(e)
+    console.log(e)
+    res.status(400).send('Thong tin khong hop le')
   }
 }
 
