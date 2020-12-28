@@ -1,4 +1,5 @@
 const express = require('express')
+const logger = require('morgan')
 require('./connectdb/mongoose')
 const cors = require('cors')
 const renterRouter = require('./routers/renter')
@@ -7,12 +8,13 @@ const adminRouter = require('./routers/admin')
 const accomodRouter = require('./routers/accommodation')
 const locationRouter = require('./routers/location')
 const followRouter = require('./routers/follow')
-const commentRouter = require('./routers/comment.model')
+const commentRouter = require('./routers/comment.router')
 
 const app = express()
 const port = process.env.PORT || 4000
 
 app.use(express.json())
+app.use(logger('dev'))
 app.use(cors())
 app.use(renterRouter)
 app.use(ownerRouter)
