@@ -55,7 +55,9 @@ module.exports.renterLogin = async (req, res) => {
     const token = await renter.generateAuthToken()
     res.send({ user: renter, token })
   } catch (e) {
-    res.status(400).send('Wrong email or password')
+    console.log(e.message)
+    res.status(401)
+    res.send(e.message)
   }
 }
 
