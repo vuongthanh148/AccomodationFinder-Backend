@@ -48,8 +48,8 @@ module.exports.viewAccomodById = async (req, res) => {
 
   accomod.materialFacilities = facilities
   accomod.comment = comment
-  accomod.avgRate = rating.avgRate
-  console.log('avgRate: ', accomod.avgRate)
+  // accomod.avgRate = rating.avgRate
+  // console.log('avgRate: ', accomod.avgRate)
 
   if (req.body.userId) {
     const follower = await Follow.findOne({ userId: req.body.userId })
