@@ -96,7 +96,7 @@ module.exports.renterProfile = async (req, res) => {
 
 module.exports.renterUpdateProfile = async (req, res) => {
   const updates = Object.keys(req.body)
-  const allowedUpdates = ['name', 'email', 'password']
+  const allowedUpdates = ['name', 'password', 'avatar']
   const isValidOperation = updates.every((update) =>
     allowedUpdates.includes(update)
   )
