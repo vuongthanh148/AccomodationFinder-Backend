@@ -17,15 +17,13 @@ router.post('/followList', auth, async (req,res) => {
     }
 })
 
-//Add new Location
-router.post('/followChange', async (req,res) => {
+router.post('/followChange', auth,  async (req,res) => {
     console.log(req.body);
     let follow = {};
     if(req.owner) follow = await Follow.findOne({_id: req.owner.follow._id});
     if(req.renter) follow = await Follow.findOne({_id: req.renter.follow._id});
     try {
       const index = follow.accommodation.indexOf(req.body.accomodId);
-  
       if(index !== -1){ //exist
         follow.accommodation.splice(index,1);
         await follow.save();
