@@ -98,13 +98,12 @@ module.exports.ownerProfile = async (req, res) => {
 
 module.exports.ownerUpdateProfile = async (req, res) => {
   const updates = Object.keys(req.body)
-  const allowedUpdates = ['name', 'email', 'password', 'address', 'phoneNumber']
+  const allowedUpdates = ['name', 'email', 'password', 'address', 'phoneNumber', 'avatar']
   const isValidOperation = updates.every((update) =>
     allowedUpdates.includes(update)
   )
 
   if (!isValidOperation) {
-    console.log('dit me may')
     return res.status(400).send({ error: 'Invalid updates!' })
   }
 
