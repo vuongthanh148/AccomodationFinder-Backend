@@ -10,10 +10,15 @@ const transporter = nodemailer.createTransport({
 })
 module.exports.renterSignup = async (req, res) => {
   const renter = new Renter(req.body)
+  const newFollow = new Follow({ userId: renter._id })
+  renter.follow = newFollow._id
+  console.log(renter)
   try {
     await renter.save()
     // const token = await renter.generateAuthToken()
-    const objectRenter = renter.toObject()
+    await newFollow.save()
+
+    const objectRenter = renter
     delete objectRenter.password
 
     var mailOptions = {
