@@ -20,7 +20,7 @@ router.post('/owner/profile', auth, ownerController.ownerUpdateProfile)
 
 router.patch('/owner/approve', ownerController.ownerApprove)
 
-router.delete('/owner/profile', auth, ownerController.ownerDeleteProfile)
+router.delete('/owner/profile/:email', ownerController.ownerDeleteProfile)
 
 router.post('/owner/follow', auth, ownerController.followChange)
 

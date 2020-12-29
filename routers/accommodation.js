@@ -15,7 +15,9 @@ router.put('/accommodation/approve', async (req, res) => {
   const { accommodationId } = req.body
   try {
     const accommodation = await Accommodation.findById(accommodationId)
+    console.log(accommodation)
     accommodation.pending = false
+    console.log(accommodation.pending)
     await accommodation.save()
     res.status(200).json({
       success: true,
@@ -29,8 +31,9 @@ router.put('/accommodation/approve', async (req, res) => {
   }
 })
 
-router.delete('/accommodation', async (req, res) => {
-  const { accommodationId } = req.body
+router.delete('/accommodation/:id', async (req, res) => {
+  const { id: accommodationId } = req.params
+  console.log(req.params)
   try {
     const accommodation = await Accommodation.findById(accommodationId)
     const listComment = await Comment.find({ accommodationId })
