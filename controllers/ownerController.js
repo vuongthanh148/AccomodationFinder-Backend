@@ -60,6 +60,9 @@ module.exports.ownerLogin = async (req, res) => {
       req.body.email,
       req.body.password
     )
+    if (owner.pending === true) {
+      return res.status(400).send('User has not been approved')
+    }
     const token = await owner.generateAuthToken()
     res.send({ user: owner, token })
   } catch (e) {
@@ -98,7 +101,7 @@ module.exports.ownerProfile = async (req, res) => {
 
 module.exports.ownerUpdateProfile = async (req, res) => {
   const updates = Object.keys(req.body)
-  const allowedUpdates = ['name', 'email', 'password', 'address', 'phoneNumber']
+  const allowedUpdates = ['name', 'email', 'password', 'address', 'phoneNumber', 'avatar']
   const isValidOperation = updates.every((update) =>
     allowedUpdates.includes(update)
   )
@@ -112,13 +115,18 @@ module.exports.ownerUpdateProfile = async (req, res) => {
     await req.owner.save()
     res.send(req.owner)
   } catch (e) {
-    res.status(400).send(e)
+    console.log(e)
+    res.status(400).send('Thong tin khong hop le')
   }
 }
 
 module.exports.ownerDeleteProfile = async (req, res) => {
+  const { email } = req.params
+  console.log(email)
   try {
-    await req.owner.remove()
+    const owner = await Owner.findOne({ email })
+    console.log(owner)
+    await owner.remove()
     res.send({ message: 'Delete Account Successful' })
   } catch (e) {
     res.status(500).send()

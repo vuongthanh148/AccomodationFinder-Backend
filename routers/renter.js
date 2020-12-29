@@ -19,7 +19,7 @@ router.post("/renter/logoutAll", auth, renterController.renterLogoutAll);
 
 router.get("/renter/profile", auth, renterController.renterProfile);
 
-router.patch("/renter/profile", auth, renterController.renterUpdateProfile);
+router.post("/renter/profile", auth, renterController.renterUpdateProfile);
 
 router.delete("/renter/profile", auth, renterController.renterDeleteProfile);
 

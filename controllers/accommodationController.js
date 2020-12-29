@@ -12,21 +12,21 @@ module.exports.newAccomod = async (req, res) => {
   const facilities = new Facilities(req.body.facilitiesInfo)
   const accomod = new Accomod({
     ...req.body.accomodInfo,
-    ownerId: req.owner._id,
-    ownerName: req.owner.name,
-    ownerPhone: req.owner.phoneNumber,
+    ownerId: req.body._id,
+    ownerName: req.body.name,
+    ownerPhone: req.body.phoneNumber,
     materialFacilities: facilities._id,
   })
   const rating = new Rating({
     accommodationId: accomod._id,
   })
   accomod.rating = rating._id
-  accomod.comment = comment._id
+  // accomod.comment = comment._id
 
   try {
     await facilities.save()
     await rating.save()
-    await comment.save()
+    // await comment.save()
     await accomod.save()
 
     res.send(accomod)
@@ -48,8 +48,8 @@ module.exports.viewAccomodById = async (req, res) => {
 
   accomod.materialFacilities = facilities
   accomod.comment = comment
-  accomod.avgRate = rating.avgRate
-  console.log('avgRate: ', accomod.avgRate)
+  // accomod.avgRate = rating.avgRate
+  // console.log('avgRate: ', accomod.avgRate)
 
   if (req.body.userId) {
     const follower = await Follow.findOne({ userId: req.body.userId })
