@@ -43,7 +43,7 @@ const accommodationSchema = mongoose.Schema({
     },
     accommodationType:{
         type: String,
-		enum: [ 'phòng trọ', 'chung cư mini', 'nhà nguyên căn', 'chung cư nguyên căn' ],
+		enum: [ 'Phòng trọ', 'Chung cư mini', 'Nhà nguyên căn', 'Chung cư nguyên căn' ],
 		required: true
     },
     avaiable:{//So luong nha con trong
@@ -103,7 +103,7 @@ const accommodationSchema = mongoose.Schema({
     title: {
         type: String,
         required: true,
-        default: "cho thuê nhà trọ giá rẻ"
+        default: "Cho thuê nhà trọ giá rẻ"
     }
 })
 
