@@ -2,9 +2,16 @@ const mongoose = require('mongoose')
 
 const facilitiesSchema = mongoose.Schema({
   bathroom: {
-    type: Boolean,
-    required: true,
-    default: true,
+    seperate: {
+      type: Boolean,
+      required: true,
+      default: true,
+    },
+    amount: {
+      type: Number,
+      required: true,
+      default: 1,
+    },
   },
   bedroom: {
     type: Number,
