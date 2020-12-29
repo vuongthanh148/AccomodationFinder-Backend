@@ -10,12 +10,11 @@ const router = express.Router()
 //helper function count like
 
 const countLike = (idPost, listFollow) => {
-  console.log(listFollow)
   let result = 0
   for (let i = 0; i < listFollow.length; i++) {
-    result += listFollow[i].accommodationId.filter((a) => a === idPost).length
+    // result += listFollow[i].accommodationId.filter((a) => a === idPost).length
+    if(listFollow.accommodationId === idPost) result +=1
   }
-
   return result
 }
 
@@ -73,8 +72,8 @@ router.get('/admin/management-post', async (req, res) => {
         rating: { rate: d.rating.avgRate },
         watch: d.watch,
         isApproved: !d.pending,
-        // sumOfLike: countLike(d._id, listFollows),
-        sumOfLike: 0,
+        sumOfLike: countLike(d._id, listFollows),
+        // sumOfLike: 0,
       }
     })
     res.json({
