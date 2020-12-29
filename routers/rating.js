@@ -6,7 +6,7 @@ const auth = require('../middleware/auth')
 
 router.post('/rating', auth, async (req, res) => {
   console.log(req.body)
-  const tempRating = Rating.findOne({accommodationId: req.body.accommodationId})
+  const tempRating = await Rating.findOne({accommodationId: req.body.accommodationId})
   tempRating.rate = {
     userId: req.body.userId,
     stars: req.body.ratedStar
