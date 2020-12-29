@@ -87,7 +87,6 @@ router.post('/accommodation/follow', auth, async (req, res) => {
       accommodationId,
       userId,
     })
-
     await newFollow.save()
     res.status(200).json({
       success: true,
