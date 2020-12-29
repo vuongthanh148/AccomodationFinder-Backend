@@ -1,15 +1,15 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
-const followSchema = mongoose.Schema({
-	userId: {
-		type: mongoose.Schema.Types.ObjectId,
-		required: true
-	},
-	accommodation: {
-		type: [mongoose.Schema.Types.ObjectId],
-		default: []
-	},
-});
-//Pre save send notification 
+const followSchema = new mongoose.Schema({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+  },
+  accommodationId: {
+    type: mongoose.Schema.Types.ObjectId,
+    require: true,
+  },
+})
+//Pre save send notification
 
-module.exports = mongoose.model('follow', followSchema);
+module.exports = mongoose.model('follow', followSchema)
