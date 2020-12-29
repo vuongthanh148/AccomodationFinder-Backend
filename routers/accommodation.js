@@ -136,10 +136,12 @@ router.get('/accommodations/:id/info', auth, async (req, res) => {
   const { id: accommodationId } = req.params
   try {
     const follow = await Follow.findOne({ userId, accommodationId })
-
+    // To do
+    // Get rate of user
     res.status(200).json({
       result: {
         isFollowed: follow ? true : false,
+        rate: 5,
       },
     })
   } catch (error) {
