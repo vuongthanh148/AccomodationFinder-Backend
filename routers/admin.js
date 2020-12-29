@@ -10,9 +10,10 @@ const router = express.Router()
 //helper function count like
 
 const countLike = (idPost, listFollow) => {
+  console.log(listFollow)
   let result = 0
   for (let i = 0; i < listFollow.length; i++) {
-    result += listFollow[i].accommodation.filter((a) => a === idPost).length
+    result += listFollow[i].accommodationId.filter((a) => a === idPost).length
   }
 
   return result
@@ -60,6 +61,7 @@ router.get('/admin/management-post', async (req, res) => {
   try {
     let data = await Accommodation.find({}).populate('rating')
     const listFollows = await Follows.find({})
+    console.log(listFollows)
 
     data = data.map((d) => {
       return {
@@ -71,7 +73,8 @@ router.get('/admin/management-post', async (req, res) => {
         rating: { rate: d.rating.avgRate },
         watch: d.watch,
         isApproved: !d.pending,
-        sumOfLike: countLike(d._id, listFollows),
+        // sumOfLike: countLike(d._id, listFollows),
+        sumOfLike: 0,
       }
     })
     res.json({
