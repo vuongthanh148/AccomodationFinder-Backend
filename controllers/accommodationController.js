@@ -145,8 +145,10 @@ module.exports.viewAccomod = async (req, res) => {
     console.log(e)
   }
 }
+
 module.exports.viewAllAccomod = async (req, res) => {
   const id = req.body.userId;
+  console.log(req.body)
   try {
     const list = await Accomod.find({ownerId: id})
     if(list) {

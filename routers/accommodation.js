@@ -10,6 +10,8 @@ router.post('/accommodation/newAccomod', auth, accomodController.newAccomod)
 
 router.post('/accommodation', accomodController.viewAccomod)
 
+router.post('/allAccommodation', accomodController.viewAllAccomod)
+
 router.get('/accommodation/:id', accomodController.viewAccomodById)
 
 router.put('/accommodation/approve', async (req, res) => {
