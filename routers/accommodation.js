@@ -4,6 +4,7 @@ const accomodController = require('../controllers/accommodationController')
 const Accommodation = require('../models/accommodationModel')
 const Follow = require('../models/followModel')
 const Comment = require('../models/commentModel')
+const Rating = require('../models/ratingModel')
 const router = express.Router()
 
 router.post('/accommodation/newAccomod', auth, accomodController.newAccomod)
@@ -92,6 +93,7 @@ router.post('/accommodation/follow', auth, async (req, res) => {
     await newFollow.save()
     res.status(200).json({
       success: true,
+      message: true,
     })
   } catch (error) {
     console.log(error)
@@ -103,6 +105,7 @@ router.post('/accommodation/follow', auth, async (req, res) => {
 })
 
 router.post('/accommodation/unfollow', auth, async (req, res) => {
+  console.log(req)
   if (!req.renter) {
     res.status(401).json({
       message: 'Unauthorized',
@@ -112,14 +115,14 @@ router.post('/accommodation/unfollow', auth, async (req, res) => {
   const { _id: userId } = req.renter
   const { accommodationId } = req.body
   try {
-    const follow = await Follow.findOne({ userId, accommodationId })
-    await follow.remove()
+    const follow = await Follow.findOneAndDelete({ userId, accommodationId })
     res.status(200).json({
       success: true,
+      message: false,
     })
   } catch (error) {
     console.log(error)
-    res.status(500).json({
+    res.json({
       success: false,
       message: 'Internal Server Error',
     })
@@ -133,16 +136,26 @@ router.get('/accommodations/:id/info', auth, async (req, res) => {
       success: false,
     })
   }
+  console.log('req: ', req)
+
   const { _id: userId } = req.renter
   const { id: accommodationId } = req.params
   try {
+    console.log('userId ', userId)
     const follow = await Follow.findOne({ userId, accommodationId })
     // To do
     // Get rate of user
+    const listRating = await Rating.findOne({
+      accommodationId: accommodationId,
+    })
+    let rate = 5
+    if (listRating.rate.find((x) => x.userId === userId))
+      rate =
+        listRating.rate[listRating.rate.find((x) => x.userId === userId)].stars
     res.status(200).json({
       result: {
         isFollowed: follow ? true : false,
-        rate: 5,
+        rate: rate,
       },
     })
   } catch (error) {
