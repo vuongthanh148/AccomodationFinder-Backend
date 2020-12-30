@@ -145,24 +145,17 @@ module.exports.viewAccomod = async (req, res) => {
     console.log(e)
   }
 }
-// module.exports.viewAccomod = async (req, res) => {
-//   try {
-//     const accomod = await Accomod.find().populate("materialFacilities").exec((err, allAccomod) => {
-//       if(err) res.send("cannot find accomod")
-//       allAccomod = allAccomod.filter(a => (
-//         removeAccents(a.city) === req.body.accommodationInfo.city &&
-//         removeAccents(a.district) === req.body.accommodationInfo.district
-//       ))
-//       if(req.body.accommodationInfo.ward) {
-//         allAccomod = allAccomod.filter(a => (
-//           removeAccents(a.ward) === req.body.accommodationInfo.ward
-//         ))
-//       }//Bullshit
-//       res.send(allAccomod)
-//     });
-//   }
-//   catch(e){
-//     console.log(e)
-//   }
+module.exports.viewAllAccomod = async (req, res) => {
+  const id = req.body.userId;
+  try {
+    const list = await Accomod.find({ownerId: id})
+    if(list) {
+      res.send(list)
+    }
+    else(list.send([]))
+  }
+  catch(e){
+    console.log(e)
+  }
 
-// };
+};
