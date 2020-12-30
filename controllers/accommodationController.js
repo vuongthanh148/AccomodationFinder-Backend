@@ -150,7 +150,7 @@ module.exports.viewAllAccomod = async (req, res) => {
   const id = req.body.userId;
   console.log(req.body)
   try {
-    const list = await Accomod.find({ownerId: id})
+    const list = await Accomod.find({ownerId: id}).populate('materialFacilities rating')
     if(list) {
       res.send(list)
     }
