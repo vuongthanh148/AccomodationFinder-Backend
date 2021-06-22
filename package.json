@@ -1,5 +1,5 @@
 {
-  "name": "house-rental-backend",
+  "name": "accomodationfinder-backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/manhcm00/HOUSE-RENTAL-BACKEND.git"
+    "url": "git+https://github.com/vuongthanh148/AccomodationFinder-Backend.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/manhcm00/HOUSE-RENTAL-BACKEND/issues"
+    "url": "https://github.com/vuongthanh148/AccomodationFinder-Backend/issues"
   },
-  "homepage": "https://github.com/manhcm00/HOUSE-RENTAL-BACKEND#readme",
+  "homepage": "https://github.com/vuongthanh148/AccomodationFinder-Backend#readme",
   "dependencies": {
     "axios": "^0.21.0",
     "bcryptjs": "^2.4.3",

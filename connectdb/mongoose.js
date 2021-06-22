@@ -16,3 +16,5 @@ mongoose.connect(
     useUnifiedTopology: true,
   }
 )
+
+// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });

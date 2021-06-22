@@ -5,7 +5,8 @@ const publicLocation = require('../models/publicLocationModel');
 //Get All Location
 router.get('/location',async (req,res) => {
     const allLocation = await publicLocation.find();
-    res.send(allLocation);
+    if(allLocation) res.status(200).send(allLocation);
+    else res.status(401)
 })
 
 //Add new Location
