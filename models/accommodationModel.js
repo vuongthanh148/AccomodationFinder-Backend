@@ -43,7 +43,7 @@ const accommodationSchema = mongoose.Schema({
   },
   publicPlace: {
     type: String,
-    required: true,
+    required: false,
   },
   accommodationType: {
     type: String,
@@ -116,7 +116,7 @@ const accommodationSchema = mongoose.Schema({
   },
   avgRate: {
     type: String,
-    default: (Math.random() * 5).toFixed(1),
+    default: "0",
   },
   title: {
     type: String,

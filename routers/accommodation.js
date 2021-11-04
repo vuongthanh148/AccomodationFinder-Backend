@@ -9,7 +9,7 @@ const router = express.Router()
 
 router.post('/accommodation/newAccomod', auth, accomodController.newAccomod)
 
-router.post('/accommodation', accomodController.viewAccomod)
+router.post('/accommodation', accomodController.searchAccomod)
 
 router.post('/allAccommodation', accomodController.viewAllAccomod)
 
@@ -19,15 +19,12 @@ router.put('/accommodation/approve', async (req, res) => {
   const { accommodationId } = req.body
   try {
     const accommodation = await Accommodation.findById(accommodationId)
-    console.log(accommodation)
     accommodation.pending = false
-    console.log(accommodation.pending)
     await accommodation.save()
     res.status(200).json({
       success: true,
     })
   } catch (error) {
-    console.log(error)
     res.status(500).json({
       success: false,
       message: 'Internal Server Error',
@@ -37,7 +34,6 @@ router.put('/accommodation/approve', async (req, res) => {
 
 router.delete('/accommodation/:id', async (req, res) => {
   const { id: accommodationId } = req.params
-  console.log(req.params)
   try {
     const accommodation = await Accommodation.findById(accommodationId)
     const listComment = await Comment.find({ accommodationId })
@@ -52,7 +48,6 @@ router.delete('/accommodation/:id', async (req, res) => {
       success: true,
     })
   } catch (error) {
-    console.log(error)
     res.status(500).json({
       success: false,
     })
@@ -84,19 +79,18 @@ router.post('/accommodation/follow', auth, async (req, res) => {
   }
   const { _id: userId } = req.renter
   const { accommodationId } = req.body
-  console.log(req.body)
   try {
     const newFollow = new Follow({
       accommodationId,
       userId,
     })
+    console.log(newFollow)
     await newFollow.save()
     res.status(200).json({
       success: true,
       message: true,
     })
   } catch (error) {
-    console.log(error)
     res.status(500).json({
       success: false,
       message: 'Internal Server Error',
@@ -105,13 +99,13 @@ router.post('/accommodation/follow', auth, async (req, res) => {
 })
 
 router.post('/accommodation/unfollow', auth, async (req, res) => {
-  console.log(req)
   if (!req.renter) {
     res.status(401).json({
       message: 'Unauthorized',
       success: false,
     })
   }
+
   const { _id: userId } = req.renter
   const { accommodationId } = req.body
   try {
@@ -121,7 +115,6 @@ router.post('/accommodation/unfollow', auth, async (req, res) => {
       message: false,
     })
   } catch (error) {
-    console.log(error)
     res.json({
       success: false,
       message: 'Internal Server Error',
@@ -136,22 +129,28 @@ router.get('/accommodations/:id/info', auth, async (req, res) => {
       success: false,
     })
   }
-  console.log('req: ', req)
 
   const { _id: userId } = req.renter
   const { id: accommodationId } = req.params
   try {
-    console.log('userId ', userId)
     const follow = await Follow.findOne({ userId, accommodationId })
     // To do
     // Get rate of user
+    let rate = 0
     const listRating = await Rating.findOne({
       accommodationId: accommodationId,
     })
-    let rate = 5
-    if (listRating.rate.find((x) => x.userId === userId))
-      rate =
-        listRating.rate[listRating.rate.find((x) => x.userId === userId)].stars
+    if(!listRating) {
+      const rating = new Rating({
+        accommodationId: accommodationId,
+      })
+      rating.save()
+    }
+    else{
+      if (listRating.rate.find((x) => x.userId == userId.toString()) !== undefined)
+        rate = listRating.rate.find((x) => x.userId == userId.toString()).stars
+    }
+
     res.status(200).json({
       result: {
         isFollowed: follow ? true : false,

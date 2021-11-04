@@ -9,21 +9,22 @@ const Follow = require('../models/followModel')
 module.exports.newAccomod = async (req, res) => {
   //Req has an user
   //Req.body: accomodInfo, facilitiesInfo, userUnfo = req.owner.info
-  const facilities = new Facilities(req.body.facilitiesInfo)
-  const accomod = new Accomod({
-    ...req.body.accomodInfo,
-    ownerId: req.body._id,
-    ownerName: req.body.name,
-    ownerPhone: req.body.phoneNumber,
-    materialFacilities: facilities._id,
-  })
-  const rating = new Rating({
-    accommodationId: accomod._id,
-  })
-  accomod.rating = rating._id
-  // accomod.comment = comment._id
-
   try {
+    const facilities = new Facilities(req.body.facilitiesInfo)
+    const accomod = new Accomod({
+      ...req.body.accomodInfo,
+      ownerId: req.body._id,
+      ownerName: req.body.name,
+      ownerPhone: req.body.phoneNumber,
+      materialFacilities: facilities._id,
+    })
+    const rating = new Rating({
+      accommodationId: accomod._id,
+    })
+    accomod.rating = rating._id
+    // accomod.comment = comment._id
+
+    
     await facilities.save()
     await rating.save()
     // await comment.save()
@@ -33,7 +34,7 @@ module.exports.newAccomod = async (req, res) => {
   } catch (err) {
     console.log(err)
     if (err) {
-      res.send(err)
+      res.status(403).send(err)
     }
   }
 }
@@ -48,7 +49,7 @@ module.exports.viewAccomodById = async (req, res) => {
 
   accomod.materialFacilities = facilities
   accomod.comment = comment
-  // accomod.avgRate = rating.avgRate
+  accomod.avgRate = rating.avgRate
   // console.log('avgRate: ', accomod.avgRate)
 
   if (req.body.userId) {
@@ -95,7 +96,7 @@ function removeAccents(str) {
     .replace(/Quan |Huyen |Thi Xa |Thanh Pho /g, '')
 }
 
-module.exports.viewAccomod = async (req, res) => {
+module.exports.searchAccomod = async (req, res) => {
   console.log(req.body)
   try {
     await Accomod.find(req.body.accommodationInfo)
@@ -111,29 +112,32 @@ module.exports.viewAccomod = async (req, res) => {
               for (const faci in req.body.facilitiesInfo) {
                 if (faci === 'bathroom')
                   return (
-                    accomod.materialFacilities[faci].seperate ===
+                    accomod.materialFacilities[faci].seperate ==
                     req.body.facilitiesInfo[faci]
                   )
-                if (faci === 'kitchen')
+                if (faci == 'kitchen')
                   return (
-                    accomod.materialFacilities[faci] ===
+                    accomod.materialFacilities[faci] ==
                     req.body.facilitiesInfo[faci]
                   )
-                if (faci === 'airConditioner')
+                if (faci == 'airConditioner'){
+                  console.log(req.body.facilitiesInfo)
+                  console.log(accomod.materialFacilities[faci])
+                    return (
+                      accomod.materialFacilities[faci] ==
+                      req.body.facilitiesInfo[faci]
+                    )
+                }
+                if (faci == 'electricWaterHeater')
                   return (
-                    accomod.materialFacilities[faci] ===
-                    req.body.facilitiesInfo[faci]
-                  )
-                if (faci === 'electricWaterHeater')
-                  return (
-                    accomod.materialFacilities[faci] ===
+                    accomod.materialFacilities[faci] ==
                     req.body.facilitiesInfo[faci]
                   )
               }
               return true
             })
             // console.log("newAccomod: ", newAccomodList.length)
-            res.send({ newAccomodList })
+            res.send({ allAccomod: newAccomodList })
           } else {
             res.send({ allAccomod })
             // console.log("newAccomod: ", allAccomod.length)

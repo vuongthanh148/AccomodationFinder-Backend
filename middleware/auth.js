@@ -7,7 +7,7 @@ const auth = async (req, res, next) => {
   //Get Token in header and add user to req
   try {
     const token = req.header('Authorization').replace('Bearer ', '')
-    // console.log(token)
+    console.log(token)
     const decoded = jwt.verify(token, 'kenji')
     const renter = await Renter.findOne({
       _id: decoded._id,

@@ -7,8 +7,9 @@ const auth = require('../middleware/auth')
 router.post('/rating', auth, async (req, res) => {
   console.log(req.body)
   const tempRating = await Rating.findOne({accommodationId: req.body.accommodationId})
-  if(tempRating.rate.find(x => x.userId === req.body.userId) !== undefined){
-      tempRating.rate[tempRating.rate.find(x => x.userId === req.body.userId)].stars = req.body.ratedStar
+  
+  if(tempRating.rate.find(x => x.userId == req.body.userId) !== undefined){
+      tempRating.rate[tempRating.rate.findIndex(x => x.userId == req.body.userId)].stars = req.body.ratedStar
   }
   else tempRating.rate.push({
       userId: req.body.userId,
