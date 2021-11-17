@@ -123,47 +123,53 @@ router.post('/accommodation/unfollow', auth, async (req, res) => {
 })
 
 router.get('/accommodations/:id/info', auth, async (req, res) => {
-  if (!req.renter) {
+  if(req.owner) res.status(200).json({
+    message: 'Owner cannot get accomod info',
+    success: false
+  })
+  else if (!req.renter) {
     res.status(401).json({
       message: 'Unauthorized',
       success: false,
     })
   }
-
-  const { _id: userId } = req.renter
-  const { id: accommodationId } = req.params
-  try {
-    const follow = await Follow.findOne({ userId, accommodationId })
-    // To do
-    // Get rate of user
-    let rate = 0
-    const listRating = await Rating.findOne({
-      accommodationId: accommodationId,
-    })
-    if(!listRating) {
-      const rating = new Rating({
+  else {
+    const { _id: userId } = req.renter
+    const { id: accommodationId } = req.params
+    try {
+      const follow = await Follow.findOne({ userId, accommodationId })
+      // To do
+      // Get rate of user
+      let rate = 0
+      const listRating = await Rating.findOne({
         accommodationId: accommodationId,
       })
-      rating.save()
+      if(!listRating) {
+        const rating = new Rating({
+          accommodationId: accommodationId,
+        })
+        rating.save()
+      }
+      else{
+        if (listRating.rate.find((x) => x.userId == userId.toString()) !== undefined)
+          rate = listRating.rate.find((x) => x.userId == userId.toString()).stars
+      }
+  
+      res.status(200).json({
+        result: {
+          isFollowed: follow ? true : false,
+          rate: rate,
+        },
+      })
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({
+        success: false,
+        message: 'Internal Server Error',
+      })
     }
-    else{
-      if (listRating.rate.find((x) => x.userId == userId.toString()) !== undefined)
-        rate = listRating.rate.find((x) => x.userId == userId.toString()).stars
-    }
-
-    res.status(200).json({
-      result: {
-        isFollowed: follow ? true : false,
-        rate: rate,
-      },
-    })
-  } catch (error) {
-    console.log(error)
-    res.status(500).json({
-      success: false,
-      message: 'Internal Server Error',
-    })
   }
+
 })
 
 module.exports = router
